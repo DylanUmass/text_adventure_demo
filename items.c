@@ -1,22 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-//The item. Has a field for a name and a description.
-struct Item {
-	char name[25];
-	char description[100];
-};
-
-//The inventory. Has a field for a name, the current number of items, the max # of items it can hold, and an array of item pointers.
-//Inventory will be used for rooms and player.
-struct Inventory {
-	char name[25];
-	int numItems;
-	int maximumSize;
-	struct Item* items[maximumSize];
-};
-
-//Typedefs
+//Typedefs for item and inventory structs.
 typedef struct Item item;
 typedef struct Inventory inventory;
 
@@ -36,4 +22,70 @@ inventory* createInv(char name[25], int maxSize) {
 	inventory newInv = {name, 0, maxSize items};
 	inventory* invPnt = &newInv;
 	return invPnt;
+}
+
+//Compares a name to an item. Returns 0 if the item has that name.
+_Bool compareItem(char[] name, item* itm) {
+	return strcmp(name, itm -> name);
+}
+
+//Compares a name to an inventory. Returns 0 if the inventory has that name.
+_Bool compareInv(char[] name, inventory* inv) {
+	return strcmp(name, inv -> name);
+}
+
+//Checks to see if an item with the given name exists in the given inventory. Returns the index if so, otherwise -1.
+int contains(char[] name, inventory* inv) {
+	for(int i = 0; i < inv -> numItems; i++) {
+		item currItem* = inv -> items[i];
+		if(compareItems(name, currItem) == 0) {
+			return i;
+		} 
+	}
+	return -1;
+}
+
+//Removes an item with the given name from the given inventory. Returns 0 if successful, or -1 if the item wasn't found in the inv.
+int removeItem(char[] name, inventory* inv) {
+	int index = contains(name, inv);
+	if(containsItem == -1) {return -1;}
+	else {
+		for(int i = index; i < inv -> numItems - 1; i++) {
+			inv -> items[i] = inv -> items[i + 1];
+		}
+	}
+	return 0;
+}
+
+//Adds a given item to the given inventory. Returns 0 if it was added successfully, or -1 if inv is full.
+int addItem(item* itm, inventory* inv) {
+	if(inv -> numItems == inv -> maximumSize) {
+		return -1;
+	}
+	else {
+		inv -> items[numItems] = itm;
+	}
+	return 0;
+}
+
+//Prints an item in the form <itemname>: <itemdescription>
+void printItem(item* itm) {
+	prinf(%s: %s, itm -> name, itm -> description);
+}
+
+//Prints all of the items in the given inventory in the form <itemname>: <itemdescription>
+void printInventory(inventory* inv) {
+	for(int i = 0; i < inv -> numItems, i++) {
+		printItem(inv -> items[i]);
+		printf("\n");
+	}
+}
+
+//Returns an item from an inventory with the given name, or NULL if that item doesn't exist in the inventory.
+item* getItem(char[] name, inventory* inv) {
+	int index = contains(name, inv);
+	if(index == -1) {
+		return NULL;
+	}
+	return inv -> items[index];
 }
