@@ -12,7 +12,7 @@ struct Inventory {
 	char name[25];
 	int numItems;
 	int maximumSize;
-	struct Item* items[maximumSize];
+	struct Item** items;
 };
 
 //Typedefs for item and inventory structs.
