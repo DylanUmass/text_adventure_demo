@@ -1,3 +1,5 @@
+#ifndef _ITEMS_H
+#define _ITEMS_H
 //The item. Has a field for a name and a description.
 struct Item {
 	char name[25];
@@ -12,3 +14,8 @@ struct Inventory {
 	int maximumSize;
 	struct Item* items[maximumSize];
 };
+
+//Typedefs for item and inventory structs.
+typedef struct Item Item;
+typedef struct Inventory Inventory;
+#endif
