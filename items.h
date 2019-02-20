@@ -2,17 +2,17 @@
 #define _ITEMS_H
 //The item. Has a field for a name and a description.
 struct Item {
-	char name[25];
-	char description[100];
+	char* name;
+	char* description;
 };
 
-//The inventory. Has a field for a name, the current number of items, the max # of items it can hold, and an array of item pointers.
+//The inventory. Has a field for a name, the current number of items, the max # of items it can hold, and a pointer to items.
 //Inventory will be used for rooms and player.
 struct Inventory {
-	char name[25];
+	char* name;
 	int numItems;
 	int maximumSize;
-	struct Item** items;
+	struct Item* items;
 };
 
 //Typedefs for item and inventory structs.
