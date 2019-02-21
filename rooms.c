@@ -3,7 +3,7 @@
 #include <string.h>
 #include "rooms.h"
 #include "items.h"
-#define DEBUG 1
+//#define DEBUG 1
 
 //Creates a Room and initializes values
 Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *w, Room *u, Room *d) {

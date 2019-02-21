@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "items.h"
+//#define DEBUG 1
 
 //Creates an Item with the given name and description, and returns it.
 Item createItem(char* name, char* description) {
@@ -105,6 +106,7 @@ void freeInventory(Inventory* inv) {
 	free(inv);
 }
 
+#ifdef DEBUG
 int main() {
 	Item sword = createItem("Silver Sword", "A large silver sword with a ruby.");
 	Item potion = createItem("Blue Potion", "A blue potion in a tall glass beaker.");
@@ -134,3 +136,4 @@ int main() {
 	freeInventory(chest);
 	return 0;
 }
+#endif

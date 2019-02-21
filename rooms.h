@@ -29,7 +29,7 @@ void setWest(Room *current, Room *toAdd);
 void setUp(Room *current, Room *toAdd);
 void setDown(Room *current, Room *toAdd);
 
-void addRoomItem(Room *room, Item *item);
+void addRoomItem(Room *room, Item item);
 
 
 #endif
