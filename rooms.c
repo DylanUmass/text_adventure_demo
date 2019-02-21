@@ -21,6 +21,14 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 	return newRoom;
 }
 
+//deletes all rooms in an array of rooms
+void deleteRooms(Room **rooms, int length){
+	for (int i = 0; i < length; i++) {
+		free(rooms[i]);
+		rooms[i] = NULL;
+	}
+}
+
 //These set a pointer of a given Room to another room
 void setNorth(Room *current, Room *toAdd) {
 	if (current == NULL)
