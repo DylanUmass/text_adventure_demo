@@ -12,10 +12,14 @@ struct Inventory {
 	char name[25];
 	int numItems;
 	int maximumSize;
-	struct Item* items[maximumSize];
+	struct Item** items[];
 };
 
 //Typedefs for item and inventory structs.
 typedef struct Item Item;
 typedef struct Inventory Inventory;
+
+//Function prototypes
+int addItem(Item* itm, Inventory* inv);
+int contains(char name[], Inventory* inv);
 #endif

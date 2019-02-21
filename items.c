@@ -33,9 +33,9 @@ _Bool compareInv(char[] name, Inventory* inv) {
 }
 
 //Checks to see if an Item with the given name exists in the given Inventory. Returns the index if so, otherwise -1.
-int contains(char[] name, Inventory* inv) {
+int contains(char name[], Inventory* inv) {
 	for(int i = 0; i < inv->numItems; i++) {
-		Item currItem* = inv->items[i];
+		Item *currItem = inv->items[i];
 		if(compareItems(name, currItem) == 0) {
 			return i;
 		} 
