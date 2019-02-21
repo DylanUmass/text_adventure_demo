@@ -68,8 +68,8 @@ void setDown(Room *current, Room *toAdd) {
 }
 
 //Adds a given item to a given Room's inventory
-void addRoomItem(Room *room, Item *item) {
-	int index = contains(item->name, room->items);
+void addRoomItem(Room *room, Item item) {
+	int index = contains(item.name, room->items);
 	if (index == -1) {
 		addItem(item, room->items);
 	}
