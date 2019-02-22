@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "items.h"
-//#define DEBUG 1
+//#define DEBUG
 
 //Creates an Item with the given name and description, and returns it.
 Item createItem(char* name, char* description) {

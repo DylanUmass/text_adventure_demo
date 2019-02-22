@@ -17,5 +17,6 @@ int main() {
 	rooms = resetRooms();
 	
 	deleteRooms(rooms, 8);
+	rooms = NULL;
 	return 0;
 }

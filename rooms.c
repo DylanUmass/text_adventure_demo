@@ -3,7 +3,7 @@
 #include <string.h>
 #include "rooms.h"
 #include "items.h"
-//#define DEBUG 1
+#define DEBUG 1
 
 //Creates a Room and initializes values
 Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *w, Room *u, Room *d) {
@@ -89,8 +89,17 @@ int main() {
 	setUp(testRoom, createRoom("up!",NULL,NULL,NULL,NULL,NULL,NULL,testRoom));
 	if (strcmp(testRoom->up->desc, "up!") != 0 || strcmp(testRoom->up->down->desc, "down!") != 0)
 		return 3;
-	free(testRoom->up);
-	free(testRoom);
+
+	Room *rooms[2];
+	int roomsArrLength = 2;
+	rooms[0] = testRoom;
+	rooms[1] = testRoom->up;
+	if (strcmp(rooms[0]->desc, "down!") != 0 || strcmp(rooms[1]->desc, "up!") != 0)
+		return 4;
+	deleteRooms(rooms, roomsArrLength);
+	if (rooms[0] != NULL || rooms[1] != NULL)
+		return 5;
+
 	printf("Testing Complete, no obvious issues\n");
 	return 0;
 }
