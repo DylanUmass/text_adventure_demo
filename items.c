@@ -100,6 +100,14 @@ Item takeItem(char* name, Inventory* inv) {
 	return itm;
 }
 
+//Swaps the item with the given name from the source inventory to the destination inventory. Returns -1 if swap was unsuccessful, otherwise 0.
+int swapInventories(char* itmName, Inventory* src, Inventory* dest) {
+	Item itm = takeItem(itmName, src);
+	if(compareItem("", itm) == 0) {return -1;}
+	addItem(itm, dest);
+	return 0;
+}
+
 //Frees an Inventory's location in memory, along with all its associated Items.
 void freeInventory(Inventory* inv) {
 	free(inv -> items);
