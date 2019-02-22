@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "items.h"
-//#define DEBUG
+#define DEBUG 1
 
 //Creates an Item with the given name and description, and returns it.
 Item createItem(char* name, char* description) {
@@ -33,7 +33,7 @@ _Bool compareInv(char* name, Inventory* inv) {
 }
 
 //Checks to see if an Item with the given name exists in the given Inventory. Returns the index if so, otherwise -1.
-int contains(char* name, Inventory* inv) {
+int getItemIndex(char* name, Inventory* inv) {
 	for(int i = 0; i < inv -> numItems; i++) {
 		Item currItem = inv -> items[i];
 		if(compareItem(name, currItem) == 0) {
@@ -45,7 +45,7 @@ int contains(char* name, Inventory* inv) {
 
 //Removes an Item with the given name from the given Inventory. Returns 0 if successful, or -1 if the Item wasn't found in the inv.
 int removeItem(char* name, Inventory* inv) {
-	int index = contains(name, inv);
+	int index = getItemIndex(name, inv);
 	if(index == -1) {return -1;}
 	else {
 		for(int i = index; i < inv -> numItems - 2; i++) {
@@ -85,7 +85,7 @@ void printInventory(Inventory* inv) {
 
 //Returns an Item from an Inventory with the given name, or NULL if that Item doesn't exist in the Inventory.
 Item getItem(char* name, Inventory* inv) {
-	int index = contains(name, inv);
+	int index = getItemIndex(name, inv);
 	if(index == -1) {
 		return nullItem;
 	}
@@ -101,7 +101,7 @@ Item takeItem(char* name, Inventory* inv) {
 }
 
 //Swaps the item with the given name from the source inventory to the destination inventory. Returns -1 if swap was unsuccessful, otherwise 0.
-int swapInventories(char* itmName, Inventory* src, Inventory* dest) {
+int swapItems(char* itmName, Inventory* src, Inventory* dest) {
 	Item itm = takeItem(itmName, src);
 	if(compareItem("", itm) == 0) {return -1;}
 	addItem(itm, dest);
@@ -142,6 +142,18 @@ int main() {
 	}
 	printInventory(chest);
 	freeInventory(chest);
+
+	Inventory *testInv = createInv("Inv", 5);
+	Inventory *testInv2 = createInv("Inv2",7);
+	printf("testInv.name: %s\n",testInv->name);
+	printf("testInv2.name: %s\n",testInv2->name);
+	if (strcmp(testInv->name, "Inv") != 0 || strcmp(testInv2->name, "Inv2") != 0)
+		return 2;
+	testInv->name = "Inv new name";
+	if (strcmp(testInv->name, "Inv new name") != 0 || strcmp(testInv2->name, "Inv2") != 0)
+		return 3;
+	printf("testInv.name: %s\n",testInv->name);
+	printf("testInv2.name: %s\n",testInv2->name);
 	return 0;
 }
 #endif

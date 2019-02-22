@@ -21,5 +21,5 @@ typedef struct Inventory Inventory;
 
 //Function prototypes
 int addItem(Item itm, Inventory* inv);
-int contains(char *name, Inventory* inv);
+int getItemIndex(char *name, Inventory* inv);
 #endif
