@@ -30,6 +30,6 @@ void printItem(Item itm);
 void printInventory(Inventory* inv);
 Item getItem(char* name, Inventory* inv);
 Item takeItem(char* name, Inventory* inv);
-int swapItems(char* itmName, Inventory* src, Inventory* dest);
+int swapItem(char* itmName, Inventory* src, Inventory* dest);
 void freeInventory(Inventory* inv);
 #endif
