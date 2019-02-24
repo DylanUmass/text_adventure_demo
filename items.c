@@ -101,7 +101,7 @@ Item takeItem(char* name, Inventory* inv) {
 }
 
 //Swaps the item with the given name from the source inventory to the destination inventory. Returns -1 if swap was unsuccessful, otherwise 0.
-int swapItems(char* itmName, Inventory* src, Inventory* dest) {
+int swapItem(char* itmName, Inventory* src, Inventory* dest) {
 	Item itm = takeItem(itmName, src);
 	if(compareItem("", itm) == 0) {return -1;}
 	addItem(itm, dest);
