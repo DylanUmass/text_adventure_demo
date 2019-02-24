@@ -48,7 +48,7 @@ int removeItem(char* name, Inventory* inv) {
 	int index = getItemIndex(name, inv);
 	if(index == -1) {return -1;}
 	else {
-		for(int i = index; i < inv -> numItems - 2; i++) {
+		for(int i = index; i < inv -> numItems - 1; i++) {
 			inv -> items[i] = inv -> items[i + 1];
 		}
 		inv -> numItems--;
