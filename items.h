@@ -20,6 +20,16 @@ typedef struct Item Item;
 typedef struct Inventory Inventory;
 
 //Function prototypes
-int addItem(Item itm, Inventory* inv);
+Item createItem(char* name, char* description);
+_Bool compareItem(char* name, Item itm);
+_Bool compareInv(char* name, Inventory* inv);
 int getItemIndex(char *name, Inventory* inv);
+int removeItem(char* name, Inventory* inv);
+int addItem(Item itm, Inventory* inv);
+void printItem(Item itm);
+void printInventory(Inventory* inv);
+Item getItem(char* name, Inventory* inv);
+Item takeItem(char* name, Inventory* inv);
+int swapItems(char* itmName, Inventory* src, Inventory* dest);
+void freeInventory(Inventory* inv);
 #endif
