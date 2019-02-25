@@ -39,21 +39,15 @@ void playerViewRoomItems(Player* player) {
 }
 
 //Lets the player take an item from their current room by entering the name of it.
-void playerTakeItem(Player* player) {
-	char* itemName;
-	printf("\nSelect an item to take: ");
-	scanf("%s", itemName);
+void playerTakeItem(Player* player, char* itemName) {
 	int result = swapItem(itemName, player -> currentRoom -> items, player -> pInv);
 	if(result == -1) {
-		printf("\nNo item in the room with that name.");
+		printf("\nThere isn't an item in the room with that name.");
 	}
 }
 
 //Lets the player drop an item from their inventory into their current room by entering the name of it.
-void playerDropItem(Player* player) {
-	char* itemName;
-	printf("\nSelect an item to drop: ");
-	scanf("%s", itemName);
+void playerDropItem(Player* player, char* itemName) {
 	int result = swapItem(itemName, player -> pInv, player -> currentRoom -> items);
 	if(result == -1) {
 		printf("\nYou don't have that item.");
