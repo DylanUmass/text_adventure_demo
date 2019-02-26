@@ -56,7 +56,7 @@ void playerDropItem(Player* player, char* itemName) {
 
 //Initialize the game's 8 Rooms and return an array of the 8 rooms
 Room **resetRooms() {
-	//some code that creates rooms
+	//some code that creates rooms goes here
 	Room **rooms = malloc(8 * sizeof(Room));
 	return rooms;
 }

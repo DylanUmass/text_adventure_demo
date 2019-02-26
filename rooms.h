@@ -1,12 +1,28 @@
 #ifndef _ROOMS_H
 #define _ROOMS_H
 #include "items.h"
+#include "event_list.h"
+
+enum direction {north, south, east, west, up, down};
+typedef enum direction Direction;
+
+/*	Holds information about an event where a "key" is used to connect one room 
+	to another in a certain direction */
+typedef struct KeyEvent KeyEvent;
+struct KeyEvent 
+	{
+		Item key;
+		Room *startRoom;
+		Direction dir;
+		Room *endRoom;
+	};
 
 typedef struct Room Room;
 struct Room
 	{
 		char *desc;
 		Inventory *items;
+		EventList *events;
 		Room *north;
 		Room *south;
 		Room *east;
@@ -29,6 +45,7 @@ void setWest(Room *current, Room *toAdd);
 void setUp(Room *current, Room *toAdd);
 void setDown(Room *current, Room *toAdd);
 
+//Adds an item to a room
 void addRoomItem(Room *room, Item item);
 
 

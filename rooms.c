@@ -32,37 +32,37 @@ void deleteRooms(Room **rooms, int length){
 //These set a pointer of a given Room to another room
 void setNorth(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->north = toAdd;
 }
 void setSouth(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->south = toAdd;
 }
 void setEast(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->east = toAdd;
 }
 void setWest(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->west = toAdd;
 }
 void setUp(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->up = toAdd;
 }
 void setDown(Room *current, Room *toAdd) {
 	if (current == NULL)
-		fprintf(stderr, "The room you're trying to modify is NULL");
+		fprintf(stderr, "The room you're trying to modify is NULL\n");
 	else
 		current->down = toAdd;
 }
@@ -70,9 +70,10 @@ void setDown(Room *current, Room *toAdd) {
 //Adds a given item to a given Room's inventory
 void addRoomItem(Room *room, Item item) {
 	int index = getItemIndex(item.name, room->items);
-	if (index == -1) {
+	if (index == -1) 
 		addItem(item, room->items);
-	}
+	else
+		fprintf(stderr, "Item is already in Room\n");
 }
 
 #ifdef DEBUG
