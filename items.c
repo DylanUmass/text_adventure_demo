@@ -35,7 +35,7 @@ _Bool compareInv(char* name, Inventory* inv) {
 //Checks to see if an Item with the given name exists in the given Inventory. Returns the index if so, otherwise -1.
 int getItemIndex(char* name, Inventory* inv) {
 	for(int i = 0; i < inv -> numItems; i++) {
-		Item currItem = inv -> items[i];
+		Item currItem = inv -> items[i]; //Looks at each item to see if the names match
 		if(compareItem(name, currItem) == 0) {
 			return i;
 		} 
@@ -45,25 +45,25 @@ int getItemIndex(char* name, Inventory* inv) {
 
 //Removes an Item with the given name from the given Inventory. Returns 0 if successful, or -1 if the Item wasn't found in the inv.
 int removeItem(char* name, Inventory* inv) {
-	int index = getItemIndex(name, inv);
+	int index = getItemIndex(name, inv); //Gets index of item in inv, if it exists
 	if(index == -1) {return -1;}
 	else {
 		for(int i = index; i < inv -> numItems - 1; i++) {
-			inv -> items[i] = inv -> items[i + 1];
+			inv -> items[i] = inv -> items[i + 1]; //Moves all item entries down in the array
 		}
 		inv -> numItems--;
-		inv -> items[inv -> numItems] = nullItem;
+		inv -> items[inv -> numItems] = nullItem; //Sets the next open item slot to the null item 
 	}
 	return 0;
 }
 
 //Adds a given Item to the given Inventory. Returns 0 if it was added successfully, or -1 if inv is full.
 int addItem(Item itm, Inventory* inv) {
-	if(inv -> numItems == inv -> maximumSize) {
+	if(inv -> numItems == inv -> maximumSize) { //If inv is full the item can't be added
 		return -1;
 	}
 	else {
-		inv -> items[inv -> numItems] = itm;
+		inv -> items[inv -> numItems] = itm; //Sets the next available item slot to the item and increments the # of items
 		inv -> numItems++;
 	}
 	return 0;
@@ -85,26 +85,26 @@ void printInventory(Inventory* inv) {
 
 //Returns an Item from an Inventory with the given name, or NULL if that Item doesn't exist in the Inventory.
 Item getItem(char* name, Inventory* inv) {
-	int index = getItemIndex(name, inv);
+	int index = getItemIndex(name, inv); //Gets the index of the item
 	if(index == -1) {
 		return nullItem;
 	}
-	return inv -> items[index];
+	return inv -> items[index]; //Returns the item
 }
 
 //Given a name, returns an Item from the given Inventory with that name, and then removes that Item. Returns NULL if Item not found.
 Item takeItem(char* name, Inventory* inv) {
-	Item itm = getItem(name, inv);
-	if(compareItem("", itm) == 0) {return nullItem;}
-	removeItem(name, inv);
+	Item itm = getItem(name, inv); //Gets the item to be returned
+	if(compareItem("", itm) == 0) {return nullItem;} //Returns null item if getItem did
+	removeItem(name, inv); //Removes the item from the inventory
 	return itm;
 }
 
 //Swaps the item with the given name from the source inventory to the destination inventory. Returns -1 if swap was unsuccessful, otherwise 0.
 int swapItem(char* itmName, Inventory* src, Inventory* dest) {
-	Item itm = takeItem(itmName, src);
-	if(compareItem("", itm) == 0) {return -1;}
-	addItem(itm, dest);
+	Item itm = takeItem(itmName, src); //Takes the item from the source inventory
+	if(compareItem("", itm) == 0) {return -1;} //Returns -1 if takeItem returned the null item
+	addItem(itm, dest); //Adds the item to the dest inventory
 	return 0;
 }
 
