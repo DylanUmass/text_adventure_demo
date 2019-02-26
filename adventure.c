@@ -4,15 +4,15 @@
 #include "rooms.h"
 #include "items.h"
 
+//Typedefs
+typedef struct Player Player;
+
 //A struct to represent the player. Has a field for a name that the player chooses, an inventory, and a current room.
 struct Player {
 	char* name;
 	Inventory* pInv;
 	Room* currentRoom;
-}
-
-//Typedefs
-typedef struct Player Player;
+};
 
 //Returns a pointer to a player struct with the name the user types. 
 Player* createPlayer() {

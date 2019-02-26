@@ -20,6 +20,7 @@ typedef struct Item Item;
 typedef struct Inventory Inventory;
 
 //Function prototypes
+Inventory* createInv(char* name, int maxSize);
 Item createItem(char* name, char* description);
 _Bool compareItem(char* name, Item itm);
 _Bool compareInv(char* name, Inventory* inv);
