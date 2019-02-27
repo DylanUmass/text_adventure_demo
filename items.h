@@ -1,5 +1,5 @@
-#ifndef _ITEMS_H
-#define _ITEMS_H
+#ifndef ITEMS_H
+#define ITEMS_H
 //The item. Has a field for a name and a description.
 struct Item {
 	char* name;

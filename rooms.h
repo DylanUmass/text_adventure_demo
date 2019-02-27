@@ -1,34 +1,22 @@
-#ifndef _ROOMS_H
-#define _ROOMS_H
+#ifndef ROOMS_H
+#define ROOMS_H
 #include "items.h"
-#include "event_list.h"
 
-typedef struct Room Room;
-struct Room
+typedef struct eventList EventList;
+struct eventList;
+
+typedef struct room Room;
+struct room
 	{
 		char *desc;
 		Inventory *items;
-		struct eventList *events;
+		EventList *events;
 		Room *north;
 		Room *south;
 		Room *east;
 		Room *west;
 		Room *up;
 		Room *down;
-	};
-
-enum direction {north, south, east, west, up, down};
-typedef enum direction Direction;
-
-/*	Holds information about an event where a "key" is used to connect one room 
-	to another in a certain direction */
-typedef struct KeyEvent KeyEvent;
-struct KeyEvent 
-	{
-		Item key;
-		Room *startRoom;
-		Direction dir;
-		Room *endRoom;
 	};
 
 //Function prototypes
@@ -47,8 +35,5 @@ void setDown(Room *current, Room *toAdd);
 
 //Adds an item to a room
 void addRoomItem(Room *room, Item item);
-
-//Checks if two KeyEvents have the same data
-_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2);
 
 #endif

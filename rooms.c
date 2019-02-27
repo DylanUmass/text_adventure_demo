@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "rooms.h"
-#include "items.h"
-#define DEBUG 1
+#include "event_list.h"
 
 //Creates a Room and initializes values
 Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *w, Room *u, Room *d) {
@@ -18,13 +17,15 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 	newRoom->west = w;
 	newRoom->up = u;
 	newRoom->down = d;
-	newRoom->events = newEList();
+	newRoom->events = createEList();
 	return newRoom;
 }
 
 //deletes all rooms in an array of rooms
 void deleteRooms(Room **rooms, int length){
 	for (int i = 0; i < length; i++) {
+		free(rooms[i]->events);
+		//deleteInv(rooms[i]->Inv);		//commented out b/c this function doesn't exist yet
 		free(rooms[i]);
 		rooms[i] = NULL;
 	}
@@ -77,40 +78,32 @@ void addRoomItem(Room *room, Item item) {
 		fprintf(stderr, "Item is already in Room\n");
 }
 
-//Checks if two KeyEvents have the same data
-_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2) {
-	return (compareItem(event1.key.name, event2.key) == 0 
-				&& event1.startRoom == event2.startRoom
-					&& event1.endRoom == event2.endRoom
-						&& event1.dir == event2.dir);
-}
-
 #ifdef DEBUG
-//Tests
-int main() {
-	printf("Starting Tests...\n");
-	Room *testRoom = createRoom("For Testing",NULL, createRoom("Test N",NULL,NULL,NULL,NULL,NULL,NULL,NULL)
-		, NULL, NULL, NULL, NULL, NULL);
-	if (strcmp("For Testing",testRoom->desc) != 0 || strcmp("Test N",testRoom->north->desc) != 0)
-		return 2;
-	free(testRoom->north);
-	free(testRoom);
-	testRoom = createRoom("down!",NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-	setUp(testRoom, createRoom("up!",NULL,NULL,NULL,NULL,NULL,NULL,testRoom));
-	if (strcmp(testRoom->up->desc, "up!") != 0 || strcmp(testRoom->up->down->desc, "down!") != 0)
-		return 3;
+	//Tests
+	int main() {
+		printf("Starting Tests...\n");
+		Room *testRoom = createRoom("For Testing",NULL, createRoom("Test N",NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+			, NULL, NULL, NULL, NULL, NULL);
+		if (strcmp("For Testing",testRoom->desc) != 0 || strcmp("Test N",testRoom->north->desc) != 0)
+			return 2;
+		free(testRoom->north);
+		free(testRoom);
+		testRoom = createRoom("down!",NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+		setUp(testRoom, createRoom("up!",NULL,NULL,NULL,NULL,NULL,NULL,testRoom));
+		if (strcmp(testRoom->up->desc, "up!") != 0 || strcmp(testRoom->up->down->desc, "down!") != 0)
+			return 3;
 
-	Room *rooms[2];
-	int roomsArrLength = 2;
-	rooms[0] = testRoom;
-	rooms[1] = testRoom->up;
-	if (strcmp(rooms[0]->desc, "down!") != 0 || strcmp(rooms[1]->desc, "up!") != 0)
-		return 4;
-	deleteRooms(rooms, roomsArrLength);
-	if (rooms[0] != NULL || rooms[1] != NULL)
-		return 5;
+		Room *rooms[2];
+		int roomsArrLength = 2;
+		rooms[0] = testRoom;
+		rooms[1] = testRoom->up;
+		if (strcmp(rooms[0]->desc, "down!") != 0 || strcmp(rooms[1]->desc, "up!") != 0)
+			return 4;
+		deleteRooms(rooms, roomsArrLength);
+		if (rooms[0] != NULL || rooms[1] != NULL)
+			return 5;
 
-	printf("Testing Complete, no obvious issues\n");
-	return 0;
-}
+		printf("Testing Complete, no obvious issues\n");
+		return 0;
+	}
 #endif

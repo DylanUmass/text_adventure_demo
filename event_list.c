@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "event_list.h"
 
-EventList *newEList() {
+EventList *createEList() {
 	EventList *listPtr = malloc(sizeof(EventList));
 	if (listPtr == NULL)
 		fprintf(stderr, "Failed to allocate memory\n");
@@ -21,21 +22,39 @@ static Node *newNode(Node *next, KeyEvent data) {
 	return nodePtr;
 }
 
+//Creates a new KeyEvent
+KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, char *desc) {
+	KeyEvent newEvent = (KeyEvent) {key, startRoom, dir, endRoom, desc};
+	return newEvent;
+}
+
 int getSize(EventList *list) {
 	return list->size;
 }
 
-//Returns 0 if the given list contains the given KeyEvent, 1 otherwise
-_Bool containsEvent(EventList *list, KeyEvent event) {
+//Might be redundant
+_Bool containsItem(EventList *list, Item item) {
 	for (Node *curr = list->head; curr != NULL; curr = curr->next) {
-		if (keyEventIsEquals(curr->data, event))
+		if (strcmp(item.name, curr->data.key.name))
 			return 1;
 	}
 	return 0;
 }
 
+/* 	Returns the KeyEvent associated with the given item if it exists in the given list,
+	If there is no event associated, then it returns a KeyEvent with an Item.name equal to "NULL" */ 
+KeyEvent getEvent(EventList *list, Item item) {
+	for (Node *curr = list->head; curr != NULL; curr = curr->next) {
+		if (strcmp(item.name, curr->data.key.name))
+			return curr->data;
+	}
+	KeyEvent noEvent;
+	noEvent.key.name = "NULL";
+	return noEvent;
+}
+
 //Adds the given KeyEvent to the given EventList
-void addToList(EventList *list, KeyEvent data) {
+void addEvent(EventList *list, KeyEvent data) {
 	Node *node = newNode(list->head, data);
 	node->next = list->head;
 	list->head = node;
@@ -80,4 +99,12 @@ _Bool deleteEvent(EventList *list, KeyEvent event) {
     	curr = curr->next;
   	}
   	return 0;
+}
+
+//Checks if two KeyEvents have the same data
+_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2) {
+	return (compareItem(event1.key.name, event2.key) == 0 
+				&& event1.startRoom == event2.startRoom
+					&& event1.endRoom == event2.endRoom
+						&& event1.dir == event2.dir);
 }

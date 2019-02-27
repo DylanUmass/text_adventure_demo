@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "items.h"
-#define DEBUG 1
 
 //Creates an Item with the given name and description, and returns it.
 Item createItem(char* name, char* description) {
@@ -115,45 +114,45 @@ void freeInventory(Inventory* inv) {
 }
 
 #ifdef DEBUG
-int main() {
-	Item sword = createItem("Silver Sword", "A large silver sword with a ruby.");
-	Item potion = createItem("Blue Potion", "A blue potion in a tall glass beaker.");
-	Item key = createItem("Rusty Key", "A rusty iron key to a jail lock.");
-	Inventory* chest = createInv("Wooden Chest", 10);
-	addItem(sword, chest);
-	addItem(potion, chest);
-	addItem(key, chest);
-	printInventory(chest);
-	printf("--------\n");
-	Item keyAlias = takeItem("Rusty Key", chest);
-	Item invalid = takeItem("Rusty Key", chest);
-	printItem(keyAlias);
-	printf("--------\n");
-	printInventory(chest);
-	printf("--------\n");
-	removeItem("Blue Potion", chest);
-	for(int i = 0; i < 20; i++) {
+	int main() {
+		Item sword = createItem("Silver Sword", "A large silver sword with a ruby.");
+		Item potion = createItem("Blue Potion", "A blue potion in a tall glass beaker.");
+		Item key = createItem("Rusty Key", "A rusty iron key to a jail lock.");
+		Inventory* chest = createInv("Wooden Chest", 10);
 		addItem(sword, chest);
-	}
-	printInventory(chest);
-	printf("--------\n");
-	for(int i = 0; i < 10; i++) {
-		removeItem("Silver Sword", chest);
-	}
-	printInventory(chest);
-	freeInventory(chest);
+		addItem(potion, chest);
+		addItem(key, chest);
+		printInventory(chest);
+		printf("--------\n");
+		Item keyAlias = takeItem("Rusty Key", chest);
+		Item invalid = takeItem("Rusty Key", chest);
+		printItem(keyAlias);
+		printf("--------\n");
+		printInventory(chest);
+		printf("--------\n");
+		removeItem("Blue Potion", chest);
+		for(int i = 0; i < 20; i++) {
+			addItem(sword, chest);
+		}
+		printInventory(chest);
+		printf("--------\n");
+		for(int i = 0; i < 10; i++) {
+			removeItem("Silver Sword", chest);
+		}
+		printInventory(chest);
+		freeInventory(chest);
 
-	Inventory *testInv = createInv("Inv", 5);
-	Inventory *testInv2 = createInv("Inv2",7);
-	printf("testInv.name: %s\n",testInv->name);
-	printf("testInv2.name: %s\n",testInv2->name);
-	if (strcmp(testInv->name, "Inv") != 0 || strcmp(testInv2->name, "Inv2") != 0)
-		return 2;
-	testInv->name = "Inv new name";
-	if (strcmp(testInv->name, "Inv new name") != 0 || strcmp(testInv2->name, "Inv2") != 0)
-		return 3;
-	printf("testInv.name: %s\n",testInv->name);
-	printf("testInv2.name: %s\n",testInv2->name);
-	return 0;
-}
+		Inventory *testInv = createInv("Inv", 5);
+		Inventory *testInv2 = createInv("Inv2",7);
+		printf("testInv.name: %s\n",testInv->name);
+		printf("testInv2.name: %s\n",testInv2->name);
+		if (strcmp(testInv->name, "Inv") != 0 || strcmp(testInv2->name, "Inv2") != 0)
+			return 2;
+		testInv->name = "Inv new name";
+		if (strcmp(testInv->name, "Inv new name") != 0 || strcmp(testInv2->name, "Inv2") != 0)
+			return 3;
+		printf("testInv.name: %s\n",testInv->name);
+		printf("testInv2.name: %s\n",testInv2->name);
+		return 0;
+	}
 #endif
