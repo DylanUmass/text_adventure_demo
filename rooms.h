@@ -3,6 +3,20 @@
 #include "items.h"
 #include "event_list.h"
 
+typedef struct Room Room;
+struct Room
+	{
+		char *desc;
+		Inventory *items;
+		struct eventList *events;
+		Room *north;
+		Room *south;
+		Room *east;
+		Room *west;
+		Room *up;
+		Room *down;
+	};
+
 enum direction {north, south, east, west, up, down};
 typedef enum direction Direction;
 
@@ -15,20 +29,6 @@ struct KeyEvent
 		Room *startRoom;
 		Direction dir;
 		Room *endRoom;
-	};
-
-typedef struct Room Room;
-struct Room
-	{
-		char *desc;
-		Inventory *items;
-		EventList *events;
-		Room *north;
-		Room *south;
-		Room *east;
-		Room *west;
-		Room *up;
-		Room *down;
 	};
 
 //Function prototypes
@@ -48,5 +48,7 @@ void setDown(Room *current, Room *toAdd);
 //Adds an item to a room
 void addRoomItem(Room *room, Item item);
 
+//Checks if two KeyEvents have the same data
+_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2);
 
 #endif

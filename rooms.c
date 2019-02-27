@@ -18,6 +18,7 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 	newRoom->west = w;
 	newRoom->up = u;
 	newRoom->down = d;
+	newRoom->events = newEList();
 	return newRoom;
 }
 
@@ -74,6 +75,14 @@ void addRoomItem(Room *room, Item item) {
 		addItem(item, room->items);
 	else
 		fprintf(stderr, "Item is already in Room\n");
+}
+
+//Checks if two KeyEvents have the same data
+_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2) {
+	return (compareItem(event1.key.name, event2.key) == 0 
+				&& event1.startRoom == event2.startRoom
+					&& event1.endRoom == event2.endRoom
+						&& event1.dir == event2.dir);
 }
 
 #ifdef DEBUG
