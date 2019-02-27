@@ -82,13 +82,15 @@ void printCommandList() {
 
 //Gets the object the user wants to use with a command from the command input
 char* getObject(char* userInput) {
-	if(userInput[1] != " ") {
+	if(userInput[1] != ' ') {
 		return '\0';
 	}
-	char object[25];
-	for(int i = 0; userInput[i + 2] != '\0', i++) {
+	char* object = (char*) malloc(sizeof(char) * 30);
+	int i;
+	for(i = 0; userInput[i + 2] != '\0'; i++) {
 		object[i] = userInput[i + 2];
 	}
+	object[i + 1] = '\0';
 	return object;
 }
 
@@ -114,7 +116,7 @@ int main() {
 		printf("\n\nType what you would like to do: ");
 		scanf("%s", userInput);
 		//Checking for valid user input (command followed by object if needed).
-		if(userInput[0] = '\0') {
+		if(userInput[0] == '\0') {
 			printf("\n\nInvalid action. Type 'h' to get a list of actions.");
 			continue;
 		}
@@ -130,7 +132,7 @@ int main() {
 			case 'l': //Look at room's items
 				playerViewRoomItems(player);
 				break;
-			case 'i'; //Look at inventory
+			case 'i': //Look at inventory
 				playerViewInventory(player);
 				break;
 			case 'u': //Use item on current room
