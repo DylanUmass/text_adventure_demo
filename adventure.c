@@ -4,21 +4,20 @@
 #include "rooms.h"
 #include "items.h"
 #include "event_list.h"
-#define DEBUG 1
 
 //Typedefs
 typedef struct Player Player;
 
-//A struct to represent the player. Has a field for a name that the player chooses, an inventory, and a current room.
+//A struct to represent the player. Has a field for an inventory, and a current room.
 struct Player {
-	Inventory* pInv;
-	Room* currentRoom;
+	Inventory* pInv; //Inventory
+	Room* currentRoom; //Current room
 };
 
-//Returns a pointer to a player struct with the name the user types. 
+//Returns a pointer to a player struct. 
 Player* createPlayer() {
 	Player* newPlayerPnt = (Player*) malloc(sizeof(Player));
-	Player newPlayer = {createInv("Your Inventory", 25), NULL}; //Player can hold max 25 items
+	Player newPlayer = {createInv("Your Inventory", 25), NULL}; 
 	(*newPlayerPnt) = newPlayer;
 	return newPlayerPnt;
 }
@@ -27,34 +26,6 @@ Player* createPlayer() {
 void freePlayer(Player* player) {
 	freeInventory(player -> pInv);
 	free(player);
-}
-
-//Lets the player take an item from their current room by entering the name of it.
-void playerTakeItem(Player* player, char* itemName) {
-	int result = swapItem(itemName, player -> currentRoom -> items, player -> pInv);
-	if(result == -1) {
-		printf("\nThere isn't an item in this room with that name.");
-	}
-}
-
-//Lets the player drop an item from their inventory into their current room by entering the name of it.
-void playerDropItem(Player* player, char* itemName) {
-	int result = swapItem(itemName, player -> pInv, player -> currentRoom -> items);
-	if(result == -1) {
-		printf("\n\nYou don't have that item.");
-	}
-}
-
-//Lets the player view the items in their current room
-void playerViewRoomItems(Player* player) {
-	printf("\n\n");
-	printInventory(player -> currentRoom -> items);
-}
-
-//Lets the player view their inventory.
-void playerViewInventory(Player* player) {
-	printf("\n\n");
-	printInventory(player -> pInv);
 }
 
 /* 	Attempts to trigger a KeyEvent in the given room with the given item.
@@ -88,6 +59,34 @@ void useKey(Item key, Room *currRoom) {
 	}
 	else
 		printf("%s cannot be used here.\n", key.name);
+}
+
+//Lets the player take an item from their current room.
+void playerTakeItem(Player* player, char* itemName) {
+	int result = swapItem(itemName, player -> currentRoom -> items, player -> pInv); //Result is -1 if item isn't in room
+	if(result == -1) {
+		printf("\nThere isn't an item in this room with that name.");
+	}
+}
+
+//Lets the player drop an item from their inventory into their current room.
+void playerDropItem(Player* player, char* itemName) {
+	int result = swapItem(itemName, player -> pInv, player -> currentRoom -> items); //Result is -1 if item not in player inventory
+	if(result == -1) {
+		printf("\n\nYou don't have that item.");
+	}
+}
+
+//Lets the player view the items in their current room.
+void playerViewRoomItems(Player* player) {
+	printf("\n\n");
+	printInventory(player -> currentRoom -> items);
+}
+
+//Lets the player view their inventory.
+void playerViewInventory(Player* player) {
+	printf("\n\n");
+	printInventory(player -> pInv);
 }
 
 //Attempts to have the player use an item
@@ -138,7 +137,7 @@ void printCommandList() {
 	printf("\nquit: Quit the game.");
 }
 
-//Initialize the game's 8 Rooms and return an array of the 8 rooms
+//Initialize the game's 8 Rooms, sets up the rooms and items within them, and return an array of the 8 rooms
 Room **resetRooms() {
 	Room **rooms = malloc(9 * sizeof(Room));
 	
@@ -239,8 +238,26 @@ Room **resetRooms() {
 	return rooms;
 }
 
+//Splits a player's input into a command and the object of said command
 char** splitInput(char* input) {
-	return NULL;
+	char** tokens = (char**) malloc(sizeof(char*) * 2);
+	int i;
+	for(i = 0; input[i] != ' ' && input[i] != '\0'; i++) {
+		(*tokens)[i] = input[i];
+	}
+	i++;
+	(*tokens)[i] = '\0';
+	if(input[i] == '\0') {
+		(*tokens + 1)[0] = '\0';
+		return tokens;
+	}
+	int j;
+	for(j = 0; input[i] != ' ' && input[i] != '\0'; j++) {
+		(*tokens + 1)[j] = input[i];
+		i++;
+	}
+	(*tokens + 1)[j + 1] = '\0';
+	return tokens;
 }
 
 int main() {
@@ -248,6 +265,11 @@ int main() {
 	Room **rooms;
 	int roomsArrLength = 9;
 	rooms = resetRooms();
+	
+	printf("\n\nYou awaken with a start. You're not sure WHHAATTT happened last night, but you seem to be in the basement of some kind of laboratory.");
+	printf("\n\nYou take a look at the room around you.");
+	
+
 	Player* player = createPlayer();
 	player -> currentRoom = rooms[0];
 	_Bool gameOver = 0; 
@@ -258,10 +280,12 @@ int main() {
 			continue;
 		}
 		printf("\n\n%s", player -> currentRoom -> desc);
-		char* playerInput;
+		char* playerInput = (char*) calloc(100, sizeof(char));
 		printf("\n\nPlease type a command: ");
 		scanf("%s", playerInput);
+		printf("1");
 		char** tokens = splitInput(playerInput);
+		printf("1");
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
 		}
@@ -269,6 +293,7 @@ int main() {
 			playerDropItem(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "look") == 0) {
+			printf("1");
 			playerViewRoomItems(player);
 		}
 		else if(strcmp(tokens[0], "inv") == 0) {
@@ -278,7 +303,7 @@ int main() {
 			playerUseItem(player, tokens[0]);
 		}
 		else if(strcmp(tokens[0], "move") == 0) {
-			playerChangeRoom(player, tokens[1]);
+			//playerChangeRoom(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "help") == 0) {
 			printCommandList();
@@ -290,8 +315,10 @@ int main() {
 		else{
 			printf("Invalid command.Type 'help' to see the list of commands.");
 		}
-		//free(tokens);
+		free(tokens);
 	} 
+	printf("\n\nYou escaped!");
+	printf("\n\nThank you for playing!");
 	freePlayer(player);
 	player = NULL;
 	deleteRooms(rooms, 8);
