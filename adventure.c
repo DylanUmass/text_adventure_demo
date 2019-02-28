@@ -112,7 +112,6 @@ void printCommandList() {
 
 //Initialize the game's 8 Rooms and return an array of the 8 rooms
 Room **resetRooms() {
-	//some code that creates rooms
 	Room **rooms = malloc(9 * sizeof(Room));
 	
 	//Rooms
@@ -212,7 +211,7 @@ Room **resetRooms() {
 	return rooms;
 }
 
-/* 	Attempts to trigger a KeyEvent in the given room with the given item
+/* 	Attempts to trigger a KeyEvent in the given room with the given item.
 	Removes the Event from the room if successful */
 void useKey(Item key, Room *currRoom) {
 	KeyEvent event = getEvent(currRoom->events, key);

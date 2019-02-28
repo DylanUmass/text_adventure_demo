@@ -25,7 +25,7 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 void deleteRooms(Room **rooms, int length){
 	for (int i = 0; i < length; i++) {
 		deleteEList(rooms[i]->events);
-		//deleteInv(rooms[i]->Inv);		//commented out b/c this function doesn't exist yet
+		freeInventory(rooms[i]->items);
 		free(rooms[i]);
 		rooms[i] = NULL;
 	}
