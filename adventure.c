@@ -57,6 +57,39 @@ void playerViewInventory(Player* player) {
 	printInventory(player -> pInv);
 }
 
+/* 	Attempts to trigger a KeyEvent in the given room with the given item.
+	Removes the Event from the room if successful */
+void useKey(Item key, Room *currRoom) {
+	KeyEvent event = getEvent(currRoom->events, key);
+	if (strcmp(event.key.name, "NULL")) {
+		printf("%s\n",event.desc);
+		switch (event.dir) {
+			case north:
+				setNorth(event.startRoom, event.endRoom);
+				break;
+			case south:
+				setSouth(event.startRoom, event.endRoom);
+				break;
+			case east:
+				setEast(event.startRoom, event.endRoom);
+				break;
+			case west:
+				setWest(event.startRoom, event.endRoom);
+				break;
+			case up:
+				setUp(event.startRoom, event.endRoom);
+				break;
+			case down:
+				setDown(event.startRoom, event.endRoom);
+				break;
+		}
+		if (deleteEvent(currRoom->events, event) == 0)
+			fprintf(stderr, "Failed to remove %s event from list\n",event.key.name);
+	}
+	else
+		printf("%s cannot be used here.\n", key.name);
+}
+
 //Attempts to have the player use an item
 void playerUseItem(Player* player, char* itemName) {
 	int itemIndex = getItemIndex(itemName,player->pInv);
@@ -211,39 +244,6 @@ Room **resetRooms() {
 	return rooms;
 }
 
-/* 	Attempts to trigger a KeyEvent in the given room with the given item.
-	Removes the Event from the room if successful */
-void useKey(Item key, Room *currRoom) {
-	KeyEvent event = getEvent(currRoom->events, key);
-	if (strcmp(event.key.name, "NULL")) {
-		printf("%s\n",event.desc);
-		switch (event.dir) {
-			case north:
-				setNorth(event.startRoom, event.endRoom);
-				break;
-			case south:
-				setSouth(event.startRoom, event.endRoom);
-				break;
-			case east:
-				setEast(event.startRoom, event.endRoom);
-				break;
-			case west:
-				setWest(event.startRoom, event.endRoom);
-				break;
-			case up:
-				setUp(event.startRoom, event.endRoom);
-				break;
-			case down:
-				setDown(event.startRoom, event.endRoom);
-				break;
-		}
-		if (deleteEvent(currRoom->events, event) == 0)
-			fprintf(stderr, "Failed to remove %s event from list\n",event.key.name);
-	}
-	else
-		printf("%s cannot be used here.\n", key.name);
-}
-
 char** splitInput(char* input) {
 	return NULL;
 }
@@ -298,6 +298,7 @@ int main() {
 		//free(tokens);
 	} 
 	freePlayer(player);
+	player = NULL;
 	deleteRooms(rooms, 8);
 	rooms = NULL;
 
