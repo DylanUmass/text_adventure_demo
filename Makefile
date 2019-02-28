@@ -3,7 +3,7 @@ CFLAGS = -g -Wall
 default: program
 
 program: rooms.o items.o event_list.o adventure.o
-	gcc $(CFLAGS) -o program rooms.o items.o event_list.o adventure.o
+	gcc $(CFLAGS) -o program.out rooms.o items.o event_list.o adventure.o
 
 rooms.o: rooms.c rooms.h event_list.h items.h
 	gcc $(CFLAGS) -c rooms.c
@@ -15,4 +15,4 @@ adventure.o: adventure.c rooms.h items.h event_list.h
 	gcc $(CFLAGS) -c adventure.c
 
 clean:
-	$(RM) program *.o *~
+	$(RM) program.out *.o *~
