@@ -42,7 +42,7 @@ int getSize(EventList *list);
 //Adds the given event to the front of the given EventList
 void addEvent(EventList *list, KeyEvent event);
 //frees the given list pointer and sets it to NULL
-void deleteList(EventList *list);
+void deleteEList(EventList *list);
 //frees and removes the given KeyEvent from the given EventList, returns 0 if the event does not exist
 _Bool deleteEvent(EventList *list, KeyEvent event);
 //Might be redundant
@@ -50,7 +50,5 @@ _Bool containsItem(EventList *list, Item item);
 /* 	Returns the KeyEvent associated with the given item if it exists in the given list,
 	If there is no event associated, then it returns a KeyEvent with an Item.name equal to "NULL" */ 
 KeyEvent getEvent(EventList *list, Item item);
-//Checks if two KeyEvents have the same data
-_Bool keyEventIsEquals(KeyEvent event1, KeyEvent event2);
 
 #endif

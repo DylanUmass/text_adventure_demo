@@ -107,12 +107,29 @@ int main() {
 	
 	deleteRooms(rooms, 8);
 	rooms = NULL;
+
+
 	#ifdef DEBUG
 		Room *start = createRoom("start", createInv("inventory", 8),NULL,NULL,NULL,NULL,NULL,NULL);
 		Room *end = createRoom("end", createInv("inventory", 8),NULL,NULL,NULL,NULL,NULL,NULL);
 		Item newItem = createItem("item", "desc");
+		if (addItem(newItem,start->items) == -1)
+			return 1;
+		if (getItemIndex("item",start->items) == -1)
+			return 2;
 		addEvent(start->events, createEvent(newItem, start, down, end, "start->down->end"));
+		if (start->events->size != 1)
+			return 3;
+		if (strcmp(start->events->head->data.key.name,"item") != 0)
+			return 4;
+		if (strcmp(getEvent(start->events, newItem).key.name, "item") != 0)
+			return 5;
+		printf("%s\n", getEvent(start->events, newItem).key.name);
+		if (strcmp(getEvent(start->events, createItem("DSFSDF","Dargon_sximitar")).key.name, "NULL") != 0)
+			return 6;
 		useKey(newItem,start);
+		if (start->down != end)
+			return 7;
 
 	#endif
 	return 0;
