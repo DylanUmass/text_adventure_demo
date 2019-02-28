@@ -5,6 +5,9 @@
 typedef struct eventList EventList;
 struct eventList;
 
+typedef enum direction Direction;
+enum direction {north, south, east, west, up, down};
+
 typedef struct room Room;
 struct room
 	{

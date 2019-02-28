@@ -57,11 +57,45 @@ void playerViewInventory(Player* player) {
 	printInventory(player -> pInv);
 }
 
-//TBD
-void playerUseItem(Player* player, char* itemName) {}
+//Attempts to have the player use an item
+void playerUseItem(Player* player, char* itemName) {
+	int itemIndex = getItemIndex(itemName,player->pInv);
+	if (itemIndex != -1) {
+		useKey(player->pInv->items[itemIndex], player->currentRoom);
+		return;
+	}
+	printf("You do not have that item.\n");
+}
 
-//TBD 
-void playerChangeRoom(Player* player, char* itemName) {}
+//Attempts to move the player to a new room in the given direction 
+void playerChangeRoom(Player* player, Direction dir) {
+	Room *newRoom;
+	switch (dir) {
+		case north:
+			newRoom = player->currentRoom->north;
+			break;
+		case south:
+			newRoom = player->currentRoom->south;
+			break;
+		case east:
+			newRoom = player->currentRoom->east;
+			break;
+		case west:
+			newRoom = player->currentRoom->west;
+			break;
+		case up:
+			newRoom = player->currentRoom->up;
+			break;
+		case down:
+			newRoom = player->currentRoom->down;
+			break;
+	}
+	if (newRoom != NULL) {
+		player->currentRoom = newRoom;
+		return;
+	}
+	printf("You cannot go that direction\n");
+}
 
 //Prints the list of commands the player can use.
 void printCommandList() {

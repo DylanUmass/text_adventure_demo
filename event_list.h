@@ -5,9 +5,9 @@
 typedef struct node Node;
 typedef struct eventList EventList;
 typedef struct keyEvent KeyEvent;
-typedef enum direction Direction;
 
-enum direction {north, south, east, west, up, down};
+
+
 
 /*	Holds information about an event where a "key" is used to connect one room 
 	to another in a certain direction */
