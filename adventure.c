@@ -101,29 +101,24 @@ void playerUseItem(Player* player, char* itemName) {
 }
 
 //Attempts to move the player to a new room in the given direction 
-void playerChangeRoom(Player* player, Direction dir) {
-	Room *newRoom;
-	switch (dir) {
-		case north:
-			newRoom = player->currentRoom->north;
-			break;
-		case south:
-			newRoom = player->currentRoom->south;
-			break;
-		case east:
-			newRoom = player->currentRoom->east;
-			break;
-		case west:
-			newRoom = player->currentRoom->west;
-			break;
-		case up:
-			newRoom = player->currentRoom->up;
-			break;
-		case down:
-			newRoom = player->currentRoom->down;
-			break;
-	}
-	if (newRoom != NULL) {
+void playerChangeRoom(Player* player, char *dir) {
+	Room *newRoom = NULL;
+	
+	if(strcmp(dir, "north") == 0) 
+		newRoom = player->currentRoom->north;
+	else if(strcmp(dir, "south") == 0)
+		newRoom = player->currentRoom->south;
+	else if(strcmp(dir, "east") == 0)
+		newRoom = player->currentRoom->east;
+	else if(strcmp(dir, "west") == 0)
+		newRoom = player->currentRoom->west;
+	else if(strcmp(dir, "up") == 0)
+		newRoom = player->currentRoom->up;
+	else if(strcmp(dir, "down") == 0)
+		newRoom = player->currentRoom->down;
+
+	if (newRoom != NULL)
+	{
 		player->currentRoom = newRoom;
 		return;
 	}
