@@ -332,7 +332,7 @@ int main() {
 			exit(0);
 		}
 		else{
-			printf("\nInvalid command.Type 'help' to see the list of commands.");
+			printf("\nInvalid command. Type 'help' to see the list of commands.");
 		}
 	} 
 	//Player has won
