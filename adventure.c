@@ -18,7 +18,7 @@ struct Player {
 //Returns a pointer to a player struct. 
 Player* createPlayer() {
 	Player* newPlayerPnt = (Player*) malloc(sizeof(Player));
-	Player newPlayer = {createInv("Your Inventory", 5), NULL}; 
+	Player newPlayer = {createInv("Your Inventory", 7), NULL}; 
 	(*newPlayerPnt) = newPlayer;
 	return newPlayerPnt;
 }
@@ -71,7 +71,7 @@ void playerTakeItem(Player* player, char* itemName) {
 	}
 	int result = swapItem(itemName, player -> currentRoom -> items, player -> pInv); //Result is -1 if item isn't in room
 	if(result == -1) {
-		printf("\nThere isn't an item in this room with that name.");
+		printf("\n\"%s\" isn't in this room.", itemName);
 	}
 	else
 		printf("\nYou took the %s.",itemName);
@@ -81,10 +81,10 @@ void playerTakeItem(Player* player, char* itemName) {
 void playerDropItem(Player* player, char* itemName) {
 	int result = swapItem(itemName, player -> pInv, player -> currentRoom -> items); //Result is -1 if item not in player inventory
 	if(result == -1) {
-		printf("\n\nYou don't have that item.");
+		printf("\nYou don't have \"%s\".", itemName);
 	}
 	else
-		printf("\n\nThe %s falls to the floor.",itemName);
+		printf("\nThe %s falls to the floor.",itemName);
 }
 
 //Lets the player view the items in their current room.
@@ -106,7 +106,7 @@ void playerUseItem(Player* player, char* itemName) {
 		useKey(player->pInv->items[itemIndex], player->currentRoom);
 		return;
 	}
-	printf("You do not have that item.\n");
+	printf("\nYou do not have \"%s\".", itemName);
 }
 
 //Attempts to move the player to a new room in the given direction 
@@ -128,9 +128,10 @@ void playerChangeRoom(Player* player, char *dir) {
 	if (newRoom != NULL)
 	{
 		player->currentRoom = newRoom;
+		printf("\n\n%s", player -> currentRoom -> desc);
 		return;
 	}
-	printf("\nYou cannot go that direction\n");
+	printf("\nYou cannot go \"%s\".", dir);
 }
 
 //Prints the list of commands the player can use.
@@ -269,22 +270,23 @@ int main() {
 	rooms = resetRooms();
 	
 	printf("\n\nYou awaken with a start. You're not sure what happened last night, but you seem to be in the basement of some kind of laboratory.");
-	printf("\n\nYou take a look at the room around you.");
+	printf("\n\nYou take a look at the room around you:");
 	
 
 	Player* player = createPlayer();
 	player -> currentRoom = rooms[0];
 	_Bool gameOver = 0; 
+
+	printf("\n\n%s", player -> currentRoom -> desc);
 	
 	while(gameOver == 0) {
 		if(player -> currentRoom == rooms[8]) {
 			gameOver = 1;
 			continue;
 		}
-		printf("\n%s", player -> currentRoom -> desc);
-		char playerInput[36];
+		char playerInput[100];
 		printf("\n\nPlease type a command: ");
-		fgets(playerInput, 36, stdin);
+		fgets(playerInput, 100, stdin);
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
 		if (tokens[0] == NULL)
@@ -302,6 +304,7 @@ int main() {
 			playerDropItem(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "look") == 0) {
+			printf("\n%s", player -> currentRoom -> desc);
 			playerViewRoomItems(player);
 		}
 		else if(strcmp(tokens[0], "inv") == 0) {
