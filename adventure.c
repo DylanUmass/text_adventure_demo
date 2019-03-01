@@ -90,12 +90,14 @@ void playerDropItem(Player* player, char* itemName) {
 //Lets the player view the items in their current room.
 void playerViewRoomItems(Player* player) {
 	printf("\n\n");
+	printInventory(player -> currentRoom -> items, -1);
 	printInventory(player -> currentRoom -> items);
 }
 
 //Lets the player view their inventory.
 void playerViewInventory(Player* player) {
 	printf("\n\n");
+	printInventory(player -> pInv, player->pInv->maximumSize);
 	printInventory(player -> pInv);
 }
 
