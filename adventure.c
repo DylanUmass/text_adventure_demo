@@ -286,6 +286,7 @@ int main() {
 		tokens[0] = strtok(playerInput, "\n ");
 		strToLower(tokens[0]);
 		tokens[1] = strtok(NULL, "\n");
+		strToLower(tokens[1]);
 
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
