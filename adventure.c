@@ -191,12 +191,13 @@ Room **resetRooms() {
 
 	//Items
 	//Room 0
-Item bat = createItem("metal bat", "A metal baseball bat.");
-	Item beaker = createItem("broken beaker", "A cracked glass beaker.");
-	Item chem = createItem("acid bottle", "A bottle full of green acid.");
+	Item bat = createItem("bat", "A metal baseball bat.");
+	Item beaker = createItem("broken", "A cracked glass beaker.");
+	Item chem = createItem("acid", "A bottle full of green acid.");
 	addItem(bat, rooms[0] -> items); 
 	addItem(beaker, rooms[0] -> items);
 	addItem(chem, rooms[0] -> items);
+
 
 	//Room 1
 
