@@ -18,7 +18,7 @@ struct Player {
 //Returns a pointer to a player struct. 
 Player* createPlayer() {
 	Player* newPlayerPnt = (Player*) malloc(sizeof(Player));
-	Player newPlayer = {createInv("Your Inventory", 25), NULL}; 
+	Player newPlayer = {createInv("Your Inventory", 5), NULL}; 
 	(*newPlayerPnt) = newPlayer;
 	return newPlayerPnt;
 }
@@ -65,6 +65,10 @@ void useKey(Item key, Room *currRoom) {
 
 //Lets the player take an item from their current room.
 void playerTakeItem(Player* player, char* itemName) {
+	if (player->pInv->numItems == player->pInv->maximumSize) {
+		printf("\nYou don't have enough space in your inventory.");
+		return;
+	}
 	int result = swapItem(itemName, player -> currentRoom -> items, player -> pInv); //Result is -1 if item isn't in room
 	if(result == -1) {
 		printf("\nThere isn't an item in this room with that name.");
@@ -86,13 +90,13 @@ void playerDropItem(Player* player, char* itemName) {
 //Lets the player view the items in their current room.
 void playerViewRoomItems(Player* player) {
 	printf("\n\n");
-	printInventory(player -> currentRoom -> items);
+	printInventory(player -> currentRoom -> items, -1);
 }
 
 //Lets the player view their inventory.
 void playerViewInventory(Player* player) {
 	printf("\n\n");
-	printInventory(player -> pInv);
+	printInventory(player -> pInv, player->pInv->maximumSize);
 }
 
 //Attempts to have the player use an item
@@ -281,7 +285,7 @@ int main() {
 		char playerInput[36];
 		printf("\n\nPlease type a command: ");
 		fgets(playerInput, 36, stdin);
-		printf("\n\n");
+		printf("\n");
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
 		strToLower(tokens[0]);
@@ -324,7 +328,7 @@ int main() {
 		}
 	} 
 	printf("\n\nYou escaped!");
-	printf("\n\nThank you for playing!");
+	printf("\n\nThank you for playing!\n");
 	freePlayer(player);
 	player = NULL;
 	deleteRooms(rooms, 8);

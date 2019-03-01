@@ -28,7 +28,7 @@ int getItemIndex(char *name, Inventory* inv);
 int removeItem(char* name, Inventory* inv);
 int addItem(Item itm, Inventory* inv);
 void printItem(Item itm);
-void printInventory(Inventory* inv);
+void printInventory(Inventory* inv, int maxSize);
 Item getItem(char* name, Inventory* inv);
 Item takeItem(char* name, Inventory* inv);
 int swapItem(char* itmName, Inventory* src, Inventory* dest);

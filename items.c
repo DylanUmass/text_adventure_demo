@@ -74,10 +74,13 @@ void printItem(Item itm) {
 }
 
 //Prints all of the Items in the given Inventory in the form <itemname>: <itemdescription>
-void printInventory(Inventory* inv) {
+void printInventory(Inventory* inv, int maxSize) {
 	printf("%s's Contents:\n\n", inv -> name);
 	for(int i = 0; i < inv -> numItems; i++) {
-		printf("%i. ", i + 1);
+		if (maxSize == -1)
+			printf("%i. ", i + 1);
+		else
+			printf("%i/%i. ", i + 1, maxSize);
 		printItem(inv -> items[i]);
 	}
 }
