@@ -191,9 +191,9 @@ Room **resetRooms() {
 
 	//Items
 	//Room 0
-	Item bat = createItem("Metal Bat", "A metal baseball bat.");
-	Item beaker = createItem("Broken Beaker", "A cracked glass beaker.");
-	Item chem = createItem("Acid Bottle", "A bottle full of green acid.");
+Item bat = createItem("metal bat", "A metal baseball bat.");
+	Item beaker = createItem("broken beaker", "A cracked glass beaker.");
+	Item chem = createItem("acid bottle", "A bottle full of green acid.");
 	addItem(bat, rooms[0] -> items); 
 	addItem(beaker, rooms[0] -> items);
 	addItem(chem, rooms[0] -> items);
@@ -201,42 +201,42 @@ Room **resetRooms() {
 	//Room 1
 
 	//Room 2
-	Item pencil = createItem("Pencil", "A wooden pencil with a worn out eraser.");
-	Item keycard = createItem("Keycard", "A keycard that's been snapped in half.");
+	Item pencil = createItem("pencil", "A wooden pencil with a worn out eraser.");
+	Item keycard = createItem("keycard", "A keycard that's been snapped in half.");
 	addItem(pencil, rooms[2] -> items);
 	addItem(keycard, rooms[2] -> items);
 
 	//Room 3
-	Item pliers = createItem("Pliers", "A pair of steel pliers.");
-	Item wire = createItem("Red Wire", "A segment of rusty wire with worn out red insulation.");
-	Item fuse = createItem("Fuse", "A fuse to a standard fusebox.");
+	Item pliers = createItem("pliers", "A pair of steel pliers.");
+	Item wire = createItem("wire", "A segment of rusty wire with worn out red insulation.");
+	Item fuse = createItem("fuse", "A fuse to a standard fusebox.");
 	addItem(pliers, rooms[3] -> items);
 	addItem(wire, rooms[3] -> items);
 	addItem(fuse, rooms[3] -> items);
 
 	//Room 4
-	Item plant = createItem("Potted Plant", "A small fern in a pot.");
-	Item wallet = createItem("Wallet", "A wallet with a license inside. You can't quite make out the name on it.");
+	Item plant = createItem("plant", "A small fern in a pot.");
+	Item wallet = createItem("wallet", "A wallet with a license inside. You can't quite make out the name on it.");
 	addItem(plant, rooms[4] -> items);
 	addItem(wallet, rooms[4] -> items);
 
 	//Room 5
-	Item coffee = createItem("Cold Cup of Coffee", "It looks like the owner never even took a sip.");
-	Item popcorn = createItem("Box of Popcorn", "A box of microwavable popcorn bags.");
+	Item coffee = createItem("coffee", "It looks like the owner never even took a sip.");
+	Item popcorn = createItem("popcorn", "A box of microwavable popcorn bags.");
 	addItem(coffee, rooms[5] -> items);
 	addItem(popcorn, rooms[5] -> items);
 
 	//Room 6
-	Item volchem = createItem("Volatile Chemicals", "A beaker full of bubbling yellow liquid.");
-	Item labnotes = createItem("Lab Notes", "A sheet of notes with a string of numbers written in the top margin.");
-	Item glasses = createItem("Safety Glasses", "A pair of dirty glass protective eyeglasses.");
+	Item volchem = createItem("chemicals", "A beaker full of bubbling yellow liquid.");
+	Item labnotes = createItem("notes", "A sheet of notes with a string of numbers written in the top margin.");
+	Item glasses = createItem("glasses", "A pair of dirty glass protective eyeglasses.");
 	addItem(volchem, rooms[6] -> items);
 	addItem(labnotes, rooms[6] -> items);
 	addItem(glasses, rooms[6] -> items);
 
 	//Room 7
-	Item liftkey = createItem("Lift Key", "The key to the atrium lift!");
-	Item particles = createItem("Bouncing Particles", "A reinforced glass container with flashing particles inside that are bouncing off the walls");
+	Item liftkey = createItem("lift key", "The key to the atrium lift!");
+	Item particles = createItem("particles", "A reinforced glass container with flashing particles inside that are bouncing off the walls");
 	addItem(liftkey, rooms[7] -> items);
 	addItem(particles, rooms[7] -> items);
 	
