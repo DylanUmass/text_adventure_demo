@@ -252,7 +252,7 @@ Room **resetRooms() {
 
 //makes a given string all lowercase
 void strToLower(char *string) {
-	for (int i = 0; string[i]; i++) {
+	for (int i = 0; string[i] != '\0'; i++) {
 		if (isalpha((unsigned char)string[i]))
 			string[i] = tolower((unsigned char)string[i]);
 	}
@@ -284,9 +284,8 @@ int main() {
 		printf("\n\n");
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
-		//strToLower(tokens[0]);
+		strToLower(tokens[0]);
 		tokens[1] = strtok(NULL, "\n");
-		//strToLower(tokens[1]);
 
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
