@@ -19,9 +19,9 @@ Requirements:
 10. The game is won when the player uses the exit lift in the atrium to escape the laboratory.
   
 Puzzle Solutions:
--Use the bat (located in the beaker storage) to break down the beaker storage's South door.
--Use the pliers (located in the breaker room) to cut the lock to the Main Basement's stairs (up direction).
--Use the acid (located in the beaker storage) to burn a hole in the break room's East wall.
--Use the notes (located in the chemical laboratory) to open the password protected South door of the atrium.
--Use the lift key (located in the Hadron Collider room) to unlock the escape lift in the Atrium (up direction).
+1. Use the bat (located in the beaker storage) to break down the beaker storage's South door.
+2. Use the pliers (located in the breaker room) to cut the lock to the Main Basement's stairs (up direction).
+3. Use the acid (located in the beaker storage) to burn a hole in the break room's East wall.
+4. Use the notes (located in the chemical laboratory) to open the password protected South door of the atrium.
+5. Use the lift key (located in the Hadron Collider room) to unlock the escape lift in the Atrium (up direction).
  
