@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "rooms.h"
 #include "items.h"
 #include "event_list.h"
@@ -67,6 +68,8 @@ void playerTakeItem(Player* player, char* itemName) {
 	if(result == -1) {
 		printf("\nThere isn't an item in this room with that name.");
 	}
+	else
+		printf("\nYou took the %s",itemName);
 }
 
 //Lets the player drop an item from their inventory into their current room.
@@ -75,6 +78,8 @@ void playerDropItem(Player* player, char* itemName) {
 	if(result == -1) {
 		printf("\n\nYou don't have that item.");
 	}
+	else
+		printf("\n\nThe %s falls to the floor.",itemName);
 }
 
 //Lets the player view the items in their current room.
@@ -238,26 +243,12 @@ Room **resetRooms() {
 	return rooms;
 }
 
-//Splits a player's input into a command and the object of said command
-char** splitInput(char* input) {
-	char** tokens = (char**) malloc(sizeof(char*) * 2);
-	int i;
-	for(i = 0; input[i] != ' ' && input[i] != '\0'; i++) {
-		(*tokens)[i] = input[i];
+//makes a given string all lowercase
+void strToLower(char *string) {
+	for (int i = 0; string[i]; i++) {
+		if (isalpha((unsigned char)string[i]))
+			string[i] = tolower((unsigned char)string[i]);
 	}
-	i++;
-	(*tokens)[i] = '\0';
-	if(input[i] == '\0') {
-		(*tokens + 1)[0] = '\0';
-		return tokens;
-	}
-	int j;
-	for(j = 0; input[i] != ' ' && input[i] != '\0'; j++) {
-		(*tokens + 1)[j] = input[i];
-		i++;
-	}
-	(*tokens + 1)[j + 1] = '\0';
-	return tokens;
 }
 
 int main() {
@@ -280,12 +271,16 @@ int main() {
 			continue;
 		}
 		printf("\n\n%s", player -> currentRoom -> desc);
-		char* playerInput = (char*) calloc(100, sizeof(char));
+		char playerInput[36];
 		printf("\n\nPlease type a command: ");
-		scanf("%s", playerInput);
-		printf("1");
-		char** tokens = splitInput(playerInput);
-		printf("1");
+		fgets(playerInput, 36, stdin);
+		printf("\n\n");
+		char *tokens[2];
+		tokens[0] = strtok(playerInput, "\n ");
+		//strToLower(tokens[0]);
+		tokens[1] = strtok(NULL, "\n");
+		//strToLower(tokens[1]);
+
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
 		}
@@ -293,29 +288,32 @@ int main() {
 			playerDropItem(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "look") == 0) {
-			printf("1");
 			playerViewRoomItems(player);
 		}
 		else if(strcmp(tokens[0], "inv") == 0) {
 			playerViewInventory(player);
 		}
 		else if(strcmp(tokens[0], "use") == 0) {
-			playerUseItem(player, tokens[0]);
+			playerUseItem(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "move") == 0) {
-			//playerChangeRoom(player, tokens[1]);
+			playerChangeRoom(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "help") == 0) {
 			printCommandList();
 		}
 		else if(strcmp(tokens[0], "quit") == 0) {
-			printf("\n\nBye for now!");
+			printf("\n\nBye for now!\n");
+			freePlayer(player);
+			player = NULL;
+			deleteRooms(rooms, 8);
+			rooms = NULL;
 			exit(0);
 		}
 		else{
 			printf("Invalid command.Type 'help' to see the list of commands.");
 		}
-		free(tokens);
+		//free(tokens);
 	} 
 	printf("\n\nYou escaped!");
 	printf("\n\nThank you for playing!");
