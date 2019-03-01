@@ -13,12 +13,12 @@ typedef struct keyEvent KeyEvent;
 	to another in a certain direction */
 struct keyEvent 
 	{
-		Item key;
-		Room *startRoom;
-		Direction dir;
-		Room *endRoom;
-		char *desc;
-		char *newDesc;
+		Item key; //The Item that triggers the event
+		Room *startRoom; //The room the 'key' must be used in
+		Direction dir; //The direction that startRoom will connect to endRoom
+		Room *endRoom; //The room that startRoom will connect to after the event is triggered
+		char *desc; //Text that is printed during the event
+		char *newDesc; //startRoom's new description after event is triggered
 	};
 
 //A node in the keyEvent linked list

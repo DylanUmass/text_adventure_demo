@@ -4,6 +4,7 @@
 #include "event_list.h"
 //#define DEBUG 1
 
+//creates a new, empty EventList
 EventList *createEList() {
 	EventList *listPtr = malloc(sizeof(EventList));
 	if (listPtr == NULL)
@@ -14,6 +15,7 @@ EventList *createEList() {
 	return listPtr;
 }
 
+//Creates a new Node that contains a KeyEvent
 static Node *newNode(Node *next, KeyEvent data) {
 	Node *nodePtr = malloc(sizeof(Node));
 	if (nodePtr == NULL)
@@ -29,6 +31,7 @@ KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, ch
 	return newEvent;
 }
 
+//Returns the number of elements in a EventList
 int getSize(EventList *list) {
 	return list->size;
 }
@@ -36,11 +39,13 @@ int getSize(EventList *list) {
 /* 	Returns the KeyEvent associated with the given item if it exists in the given list,
 	If there is no event associated, then it returns a KeyEvent with an Item.name equal to "NULL" */ 
 KeyEvent getEvent(EventList *list, Item item) {
+	//Searching for a match of item names
 	for (Node *curr = list->head; curr != NULL; curr = curr->next) {
 		if (strcmp(item.name, curr->data.key.name) == 0) {
 			return curr->data;
 		}
 	}
+	//If there was no match to be found
 	KeyEvent noEvent;
 	noEvent.key.name = "NULL";
 	return noEvent;
@@ -56,7 +61,7 @@ void addEvent(EventList *list, KeyEvent data) {
 	list->size++;
 }
 
-//helper for deleteList
+//Recursive helper for deleteList, frees all the nodes in a list
 static void deleteNodes(Node *node) {
 	if (node != NULL) {
 		deleteNodes(node->next);

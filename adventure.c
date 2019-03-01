@@ -267,6 +267,7 @@ void strToLower(char *string) {
 int main() {
 	//Create and connect rooms
 	Room **rooms;
+	int numRooms = 8;
 	rooms = resetRooms();
 	
 	printf("\n\nYou awaken with a start. You're not sure what happened last night, but you seem to be in the basement of some kind of laboratory.");
@@ -336,7 +337,7 @@ int main() {
 	printf("\nThank you for playing!\n\n");
 	freePlayer(player);
 	player = NULL;
-	deleteRooms(rooms, 8);
+	deleteRooms(rooms, numRooms);
 	rooms = NULL;
 
 
