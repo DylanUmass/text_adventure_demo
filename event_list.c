@@ -24,8 +24,8 @@ static Node *newNode(Node *next, KeyEvent data) {
 }
 
 //Creates a new KeyEvent
-KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, char *desc) {
-	KeyEvent newEvent = (KeyEvent) {key, startRoom, dir, endRoom, desc};
+KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, char *desc, char *newDesc) {
+	KeyEvent newEvent = (KeyEvent) {key, startRoom, dir, endRoom, desc, newDesc};
 	return newEvent;
 }
 

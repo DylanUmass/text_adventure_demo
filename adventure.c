@@ -151,7 +151,7 @@ Room **resetRooms() {
 	rooms[1] = createRoom("Main Basement: A large, barren room. The doorway upstairs is locked with a rusty padlock, and there's open doors to the North, South, and West.", createInv("Main Basement", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[2] = createRoom("Basement Office: A cramped office that looks like it's been torn apart. The exit is to the North.", createInv("Basement Office", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[3] = createRoom("Breaker Room: A room lined with electrical wires. There are various boxes of tools haphazardly placed on the floor. The exit is to the East.", createInv("Breaker Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
-	rooms[4] = createRoom("Atrium: A large, immaculate, dome-shaped room. There's an elevator out, but it required a lift key to use. There's also a password protected door to the South and an open door to the north.", createInv("Atrium", 25), NULL, NULL, NULL, NULL, NULL, NULL);
+	rooms[4] = createRoom("Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. There's also a password protected door to the South and an open door to the north.", createInv("Atrium", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[5] = createRoom("Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, but there's a weak point in the wall to the East.", createInv("Break Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[6] = createRoom("Chemical Lab: A large white room with a few rows of lab tables, each with various chemical mixtures on them. The exit is to the West", createInv("Chemical Lab", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[7] = createRoom("Hadron Collider: A metal plated circular room with a Large Hadron Collider in the center. The exit is to the North.", createInv("Hadron Collider", 25), NULL, NULL, NULL, NULL, NULL, NULL);
@@ -241,11 +241,11 @@ Item bat = createItem("metal bat", "A metal baseball bat.");
 	addItem(particles, rooms[7] -> items);
 	
 	//Events
-	addEvent(rooms[0] -> events, createEvent(bat, rooms[0], south, rooms[1], "You smashed open the door with the bat!"));
-	addEvent(rooms[1] -> events, createEvent(pliers, rooms[1], up, rooms[4], "You cut the lock with the pliers!"));
-	addEvent(rooms[5] -> events, createEvent(chem, rooms[5], east, rooms[6], "You melted the wall with acid!"));
-	addEvent(rooms[4] -> events, createEvent(labnotes, rooms[4], south, rooms[7], "You unlocked the door with the passcode!"));
-	addEvent(rooms[4] -> events, createEvent(liftkey, rooms[4], up, rooms[8], "You activated the lift with the lift key!"));
+	addEvent(rooms[0] -> events, createEvent(bat, rooms[0], south, rooms[1], "You smashed open the door with the bat!", "Beaker Storage: A dusty, dark room with beakers on shelves lining the walls. The only exit is to the South."));
+	addEvent(rooms[1] -> events, createEvent(pliers, rooms[1], up, rooms[4], "You cut the lock with the pliers!", "Main Basement: A large, barren room. The upstairs doorway is unlocked, and there are open doors to the North, South, and West."));
+	addEvent(rooms[5] -> events, createEvent(chem, rooms[5], east, rooms[6], "You melted the wall with acid!", "Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, and there's a hole in the wall to the East."));
+	addEvent(rooms[4] -> events, createEvent(labnotes, rooms[4], south, rooms[7], "You unlocked the door with the passcode!", "Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. The password protected door to the South is open, as well as a door to the north."));
+	addEvent(rooms[4] -> events, createEvent(liftkey, rooms[4], up, rooms[8], "You activated the lift with the lift key!", "Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, and is fully functional. The password protected door to the South is open, as well as a door to the north."));
 	
 	return rooms;
 }

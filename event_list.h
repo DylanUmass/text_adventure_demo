@@ -18,6 +18,7 @@ struct keyEvent
 		Direction dir;
 		Room *endRoom;
 		char *desc;
+		char *newDesc;
 	};
 
 struct node 
@@ -36,7 +37,7 @@ struct eventList
 //creates a new EventList
 EventList *createEList();
 //creates a new KeyEvent
-KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, char *desc);
+KeyEvent createEvent(Item key, Room *startRoom, Direction dir, Room *endRoom, char *desc, char *newDesc);
 //returns the size of the list
 int getSize(EventList *list);
 //Adds the given event to the front of the given EventList
