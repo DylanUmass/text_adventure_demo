@@ -159,13 +159,13 @@ Room **resetRooms() {
 	
 	//Room entrances/exits
 	//Room 0
-	setSouth(rooms[0], rooms[1]);
+	//setSouth(rooms[0], rooms[1]);
 	
 	//Room 1
 	setNorth(rooms[1], rooms[0]);
 	setWest(rooms[1], rooms[3]);
 	setSouth(rooms[1], rooms[2]);
-	setUp(rooms[1], rooms[4]);
+	//setUp(rooms[1], rooms[4]);
 
 	//Room 2
 	setNorth(rooms[2], rooms[1]);
@@ -175,13 +175,13 @@ Room **resetRooms() {
 
 	//Room 4
 	setNorth(rooms[4], rooms[5]);
-	setSouth(rooms[4], rooms[7]);
-	setUp(rooms[4], rooms[8]);
+	//setSouth(rooms[4], rooms[7]);
+	//setUp(rooms[4], rooms[8]);
 	setDown(rooms[4], rooms[1]);
 
 	//Room 5
 	setSouth(rooms[5], rooms[4]);
-	setEast(rooms[5], rooms[6]);
+	//setEast(rooms[5], rooms[6]);
 
 	//Room 6
 	setWest(rooms[6], rooms[5]);
