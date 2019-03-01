@@ -21,12 +21,14 @@ struct keyEvent
 		char *newDesc;
 	};
 
+//A node in the keyEvent linked list
 struct node 
 	{
 		KeyEvent data;
 		Node *next;
 	};
 
+//A linked list of keyEvents
 struct eventList
 	{
 		Node *head;

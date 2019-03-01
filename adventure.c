@@ -142,7 +142,7 @@ void printCommandList() {
 	printf("\nlook: Look at the items in the room.");
 	printf("\ninv: Look at your inventory.");
 	printf("\nuse <itemname>: Use an item on your current room.");
-	printf("\nmove <direction>: Move to a different room.");
+	printf("\ngo <direction>: Move to a different room.");
 	printf("\nhelp: Prints the command list.");
 	printf("\nquit: Quit the game.");
 }
@@ -314,7 +314,7 @@ int main() {
 			printf("\n");
 			playerUseItem(player, tokens[1]);
 		}
-		else if(strcmp(tokens[0], "move") == 0) {
+		else if(strcmp(tokens[0], "go") == 0) {
 			playerChangeRoom(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "help") == 0) {
