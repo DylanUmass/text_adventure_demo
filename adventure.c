@@ -287,6 +287,8 @@ int main() {
 		fgets(playerInput, 36, stdin);
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
+		if (tokens[0] = NULL)
+			tokens[0] = "";
 		strToLower(tokens[0]);
 		tokens[1] = strtok(NULL, "\n");
 		if (tokens[1] == NULL)
