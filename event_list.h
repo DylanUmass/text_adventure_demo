@@ -6,15 +6,12 @@ typedef struct node Node;
 typedef struct eventList EventList;
 typedef struct keyEvent KeyEvent;
 
-
-
-
 /*	Holds information about an event where a "key" is used to connect one room 
 	to another in a certain direction */
 struct keyEvent 
 	{
 		Item key; //The Item that triggers the event
-		Room *startRoom; //The room the 'key' must be used in
+		Room *startRoom; //The room that will be connected to another (doesn't have to be the same room that the event takes place in)
 		Direction dir; //The direction that startRoom will connect to endRoom
 		Room *endRoom; //The room that startRoom will connect to after the event is triggered
 		char *desc; //Text that is printed during the event

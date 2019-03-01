@@ -18,8 +18,8 @@ struct Player {
 //Returns a pointer to a player struct. 
 Player* createPlayer() {
 	Player* newPlayerPnt = (Player*) malloc(sizeof(Player));
-	Player newPlayer = {createInv("Your Inventory", 7), NULL}; 
-	(*newPlayerPnt) = newPlayer;
+	Player newPlayer = {createInv("Your Inventory", 7), NULL}; //create player's inventory
+	*newPlayerPnt = newPlayer;
 	return newPlayerPnt;
 }
 
@@ -33,10 +33,10 @@ void freePlayer(Player* player) {
 	Removes the Event from the room if successful */
 void useKey(Item key, Room *currRoom) {
 	KeyEvent event = getEvent(currRoom->events, key);
-	if (strcmp(event.key.name, "NULL")) {
+	if (strcmp(event.key.name, "NULL")) { //if there is an event in currRoom associated with Item key
 		printf("%s\n",event.desc);
-		currRoom->desc = event.newDesc;
-		switch (event.dir) {
+		currRoom->desc = event.newDesc; //replace currRoom's description w/ new one
+		switch (event.dir) { //Connect startRoom to endRoom in the programmed direction
 			case north:
 				setNorth(event.startRoom, event.endRoom);
 				break;
@@ -56,7 +56,7 @@ void useKey(Item key, Room *currRoom) {
 				setDown(event.startRoom, event.endRoom);
 				break;
 		}
-		if (deleteEvent(currRoom->events, event) == 0)
+		if (deleteEvent(currRoom->events, event) == 0) //Frees and removes the event from the room's EventList
 			fprintf(stderr, "Failed to remove %s event from list\n",event.key.name);
 	}
 	else
@@ -65,7 +65,7 @@ void useKey(Item key, Room *currRoom) {
 
 //Lets the player take an item from their current room.
 void playerTakeItem(Player* player, char* itemName) {
-	if(player->pInv->numItems == player->pInv->maximumSize) {
+	if(player->pInv->numItems == player->pInv->maximumSize) { //Make sure player's inventory is not full
 		printf("\nYou don't have enough space in your inventory.");
 		return;
 	}
@@ -101,9 +101,9 @@ void playerViewInventory(Player* player) {
 
 //Attempts to have the player use an item
 void playerUseItem(Player* player, char* itemName) {
-	int itemIndex = getItemIndex(itemName,player->pInv);
+	int itemIndex = getItemIndex(itemName,player->pInv); //check if player has item
 	if (itemIndex != -1) {
-		useKey(player->pInv->items[itemIndex], player->currentRoom);
+		useKey(player->pInv->items[itemIndex], player->currentRoom); //Attepmt to trigger event
 		return;
 	}
 	printf("\nYou do not have \"%s\".", itemName);
@@ -112,6 +112,7 @@ void playerUseItem(Player* player, char* itemName) {
 //Attempts to move the player to a new room in the given direction 
 void playerChangeRoom(Player* player, char *dir) {
 	Room *newRoom = NULL;
+	//Get the pointer to the desired room
 	if(strcmp(dir, "north") == 0) 
 		newRoom = player->currentRoom->north;
 	else if(strcmp(dir, "south") == 0)
@@ -125,7 +126,7 @@ void playerChangeRoom(Player* player, char *dir) {
 	else if(strcmp(dir, "down") == 0)
 		newRoom = player->currentRoom->down;
 
-	if (newRoom != NULL)
+	if (newRoom != NULL) //If player typed a valid direction, and there is a room connected
 	{
 		player->currentRoom = newRoom;
 		printf("\n\n%s", player -> currentRoom -> desc);
@@ -162,15 +163,12 @@ Room **resetRooms() {
 	rooms[7] = createRoom("Hadron Collider: A metal plated circular room with a Large Hadron Collider in the center. The exit is to the North.", createInv("Hadron Collider", 25), NULL, NULL, NULL, NULL, NULL, NULL);
   	rooms[8] = createRoom("EXIT", NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 	
-	//Room entrances/exits
-	//Room 0
-	//setSouth(rooms[0], rooms[1]);
+	//Initialize Room entrances/exits
 	
 	//Room 1
 	setNorth(rooms[1], rooms[0]);
 	setWest(rooms[1], rooms[3]);
 	setSouth(rooms[1], rooms[2]);
-	//setUp(rooms[1], rooms[4]);
 
 	//Room 2
 	setNorth(rooms[2], rooms[1]);
@@ -180,13 +178,10 @@ Room **resetRooms() {
 
 	//Room 4
 	setNorth(rooms[4], rooms[5]);
-	//setSouth(rooms[4], rooms[7]);
-	//setUp(rooms[4], rooms[8]);
 	setDown(rooms[4], rooms[1]);
 
 	//Room 5
 	setSouth(rooms[5], rooms[4]);
-	//setEast(rooms[5], rooms[6]);
 
 	//Room 6
 	setWest(rooms[6], rooms[5]);
@@ -194,7 +189,8 @@ Room **resetRooms() {
 	//Room 7
 	setNorth(rooms[7], rooms[4]);
 
-	//Items
+	//Add Items to Rooms
+	
 	//Room 0
 	Item bat = createItem("bat", "A metal baseball bat.");
 	Item beaker = createItem("beaker", "A cracked glass beaker.");
@@ -202,9 +198,6 @@ Room **resetRooms() {
 	addItem(bat, rooms[0] -> items); 
 	addItem(beaker, rooms[0] -> items);
 	addItem(chem, rooms[0] -> items);
-
-
-	//Room 1
 
 	//Room 2
 	Item pencil = createItem("pencil", "A wooden pencil with a worn out eraser.");
@@ -246,7 +239,7 @@ Room **resetRooms() {
 	addItem(liftkey, rooms[7] -> items);
 	addItem(particles, rooms[7] -> items);
 	
-//Events
+//Program Events, and add them to the Rooms
 	addEvent(rooms[0] -> events, createEvent(bat, rooms[0], south, rooms[1], "You smashed open the South door with the bat!", "Beaker Storage: A dusty, dark room with beakers on shelves lining the walls. The only exit is to the South."));
 	addEvent(rooms[1] -> events, createEvent(pliers, rooms[1], up, rooms[4], "You cut the lock to the door upstairs with the pliers!", "Main Basement: A large, barren room. The upstairs doorway is unlocked, and there are open doors to the North, South, and West."));
 	addEvent(rooms[5] -> events, createEvent(chem, rooms[5], east, rooms[6], "You melted the East wall with acid!", "Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, and there's a hole in the wall to the East."));
@@ -258,6 +251,7 @@ Room **resetRooms() {
 
 //makes a given string all lowercase
 void strToLower(char *string) {
+	//Iterate through the string and set all alphabet characters to their lowercase counterparts
 	for (int i = 0; string[i] != '\0'; i++) {
 		if (isalpha((unsigned char)string[i]))
 			string[i] = tolower((unsigned char)string[i]);
@@ -266,38 +260,46 @@ void strToLower(char *string) {
 
 int main() {
 	//Create and connect rooms
-	Room **rooms;
-	int numRooms = 8;
+	Room **rooms; //List of all rooms
+	int numRooms = 8; //number of rooms in the game
 	rooms = resetRooms();
 	
 	printf("\n\nYou awaken with a start. You're not sure what happened last night, but you seem to be in the basement of some kind of laboratory.");
 	printf("\n\nYou take a look at the room around you:");
-	
 
+	//Initialize player
 	Player* player = createPlayer();
 	player -> currentRoom = rooms[0];
 	_Bool gameOver = 0; 
 
+	//Print the description for the starting room
 	printf("\n\n%s", player -> currentRoom -> desc);
 	
 	while(gameOver == 0) {
-		if(player -> currentRoom == rooms[8]) {
+
+		if (player -> currentRoom == rooms[8]) { //Check if player has won
 			gameOver = 1;
 			continue;
 		}
+
 		char playerInput[100];
 		printf("\n\nPlease type a command: ");
 		fgets(playerInput, 100, stdin);
+
+		//Parse the first token from the player's input by either a space or newline character
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
-		if (tokens[0] == NULL)
+		if (tokens[0] == NULL) //If the player didn't type anything
 			tokens[0] = "";
-		strToLower(tokens[0]);
+		strToLower(tokens[0]); //Convert to lowercase
+
+		//Parse the second token from the player's input by a newline character only
 		tokens[1] = strtok(NULL, "\n");
 		if (tokens[1] == NULL)
 			tokens[1] = "";
 		strToLower(tokens[1]);
 
+		//Execute player's command
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
 		}
@@ -333,6 +335,7 @@ int main() {
 			printf("\nInvalid command.Type 'help' to see the list of commands.");
 		}
 	} 
+	//Player has won
 	printf("\n\nYou escaped!");
 	printf("\nThank you for playing!\n\n");
 	freePlayer(player);
