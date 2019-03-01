@@ -240,6 +240,13 @@ Room **resetRooms() {
 	addItem(liftkey, rooms[7] -> items);
 	addItem(particles, rooms[7] -> items);
 	
+	//Events
+	addEvent(rooms[0] -> events, createEvent(bat, rooms[0], south, rooms[1], "You smashed open the door with the bat!"));
+	addEvent(rooms[1] -> events, createEvent(pliers, rooms[1], up, rooms[4], "You cut the lock with the pliers!"));
+	addEvent(rooms[5] -> events, createEvent(chem, rooms[5], east, rooms[6], "You melted the wall with acid!"));
+	addEvent(rooms[4] -> events, createEvent(labnotes, rooms[4], south, rooms[7], "You unlocked the door with the passcode!"));
+	addEvent(rooms[4] -> events, createEvent(liftkey, rooms[4], up, rooms[8], "You activated the lift with the lift key!"));
+	
 	return rooms;
 }
 
