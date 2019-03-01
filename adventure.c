@@ -107,7 +107,6 @@ void playerUseItem(Player* player, char* itemName) {
 //Attempts to move the player to a new room in the given direction 
 void playerChangeRoom(Player* player, char *dir) {
 	Room *newRoom = NULL;
-	
 	if(strcmp(dir, "north") == 0) 
 		newRoom = player->currentRoom->north;
 	else if(strcmp(dir, "south") == 0)
@@ -262,7 +261,6 @@ void strToLower(char *string) {
 int main() {
 	//Create and connect rooms
 	Room **rooms;
-	int roomsArrLength = 9;
 	rooms = resetRooms();
 	
 	printf("\n\nYou awaken with a start. You're not sure WHHAATTT happened last night, but you seem to be in the basement of some kind of laboratory.");
@@ -287,8 +285,9 @@ int main() {
 		tokens[0] = strtok(playerInput, "\n ");
 		strToLower(tokens[0]);
 		tokens[1] = strtok(NULL, "\n");
-		if (tokens[1] != NULL)
-			strToLower(tokens[1]);
+		if (tokens[1] == NULL)
+			tokens[1] = "";
+		strToLower(tokens[1]);
 
 		if(strcmp(tokens[0], "take") == 0) {
 			playerTakeItem(player, tokens[1]);
@@ -322,7 +321,6 @@ int main() {
 		else{
 			printf("Invalid command.Type 'help' to see the list of commands.");
 		}
-		//free(tokens);
 	} 
 	printf("\n\nYou escaped!");
 	printf("\n\nThank you for playing!");
