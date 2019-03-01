@@ -65,7 +65,7 @@ void useKey(Item key, Room *currRoom) {
 
 //Lets the player take an item from their current room.
 void playerTakeItem(Player* player, char* itemName) {
-	if (player->pInv->numItems == player->pInv->maximumSize) {
+	if(player->pInv->numItems == player->pInv->maximumSize) {
 		printf("\nYou don't have enough space in your inventory.");
 		return;
 	}
@@ -74,7 +74,7 @@ void playerTakeItem(Player* player, char* itemName) {
 		printf("\nThere isn't an item in this room with that name.");
 	}
 	else
-		printf("\nYou took the %s",itemName);
+		printf("\nYou took the %s.",itemName);
 }
 
 //Lets the player drop an item from their inventory into their current room.
@@ -90,13 +90,13 @@ void playerDropItem(Player* player, char* itemName) {
 //Lets the player view the items in their current room.
 void playerViewRoomItems(Player* player) {
 	printf("\n\n");
-	printInventory(player -> currentRoom -> items, -1);
+	printInventory(player -> currentRoom -> items);
 }
 
 //Lets the player view their inventory.
 void playerViewInventory(Player* player) {
 	printf("\n\n");
-	printInventory(player -> pInv, player->pInv->maximumSize);
+	printInventory(player -> pInv);
 }
 
 //Attempts to have the player use an item
@@ -130,7 +130,7 @@ void playerChangeRoom(Player* player, char *dir) {
 		player->currentRoom = newRoom;
 		return;
 	}
-	printf("You cannot go that direction\n");
+	printf("\nYou cannot go that direction\n");
 }
 
 //Prints the list of commands the player can use.
@@ -155,7 +155,7 @@ Room **resetRooms() {
 	rooms[1] = createRoom("Main Basement: A large, barren room. The doorway upstairs is locked with a rusty padlock, and there's open doors to the North, South, and West.", createInv("Main Basement", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[2] = createRoom("Basement Office: A cramped office that looks like it's been torn apart. The exit is to the North.", createInv("Basement Office", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[3] = createRoom("Breaker Room: A room lined with electrical wires. There are various boxes of tools haphazardly placed on the floor. The exit is to the East.", createInv("Breaker Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
-	rooms[4] = createRoom("Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. There's also a password protected door to the South and an open door to the north.", createInv("Atrium", 25), NULL, NULL, NULL, NULL, NULL, NULL);
+	rooms[4] = createRoom("Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. There's also a password protected door to the South, an open door to the North, and stairs to the basement.", createInv("Atrium", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[5] = createRoom("Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, but there's a weak point in the wall to the East.", createInv("Break Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[6] = createRoom("Chemical Lab: A large white room with a few rows of lab tables, each with various chemical mixtures on them. The exit is to the West", createInv("Chemical Lab", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[7] = createRoom("Hadron Collider: A metal plated circular room with a Large Hadron Collider in the center. The exit is to the North.", createInv("Hadron Collider", 25), NULL, NULL, NULL, NULL, NULL, NULL);
@@ -281,15 +281,12 @@ int main() {
 			gameOver = 1;
 			continue;
 		}
-		printf("\n\n%s", player -> currentRoom -> desc);
+		printf("\n%s", player -> currentRoom -> desc);
 		char playerInput[36];
 		printf("\n\nPlease type a command: ");
 		fgets(playerInput, 36, stdin);
-		printf("\n");
 		char *tokens[2];
 		tokens[0] = strtok(playerInput, "\n ");
-		if (tokens[0] == NULL)
-			tokens[0] = "";
 		strToLower(tokens[0]);
 		tokens[1] = strtok(NULL, "\n");
 		if (tokens[1] == NULL)
@@ -309,6 +306,7 @@ int main() {
 			playerViewInventory(player);
 		}
 		else if(strcmp(tokens[0], "use") == 0) {
+			printf("\n");
 			playerUseItem(player, tokens[1]);
 		}
 		else if(strcmp(tokens[0], "move") == 0) {
@@ -326,11 +324,11 @@ int main() {
 			exit(0);
 		}
 		else{
-			printf("Invalid command.Type 'help' to see the list of commands.");
+			printf("\nInvalid command.Type 'help' to see the list of commands.");
 		}
 	} 
 	printf("\n\nYou escaped!");
-	printf("\n\nThank you for playing!\n");
+	printf("\nThank you for playing!\n\n");
 	freePlayer(player);
 	player = NULL;
 	deleteRooms(rooms, 8);
