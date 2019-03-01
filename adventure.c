@@ -35,6 +35,7 @@ void useKey(Item key, Room *currRoom) {
 	KeyEvent event = getEvent(currRoom->events, key);
 	if (strcmp(event.key.name, "NULL")) {
 		printf("%s\n",event.desc);
+		currRoom->desc = event.newDesc;
 		switch (event.dir) {
 			case north:
 				setNorth(event.startRoom, event.endRoom);
@@ -146,7 +147,7 @@ Room **resetRooms() {
 	Room **rooms = malloc(9 * sizeof(Room));
 	
 	//Rooms
-	rooms[0] = createRoom("Beaker Storage: A dusty, dark room with beakers on shelves lining the walls. The only exit is to the South, and the door is weaky barricaded.", createInv("Beaker Storage", 25), NULL, NULL, NULL, NULL, NULL, NULL);
+	rooms[0] = createRoom("Beaker Storage: A dusty, dark room with beakers on shelves lining the walls. The only exit is to the South, and the door is weakly barricaded.", createInv("Beaker Storage", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[1] = createRoom("Main Basement: A large, barren room. The doorway upstairs is locked with a rusty padlock, and there's open doors to the North, South, and West.", createInv("Main Basement", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[2] = createRoom("Basement Office: A cramped office that looks like it's been torn apart. The exit is to the North.", createInv("Basement Office", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[3] = createRoom("Breaker Room: A room lined with electrical wires. There are various boxes of tools haphazardly placed on the floor. The exit is to the East.", createInv("Breaker Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
@@ -191,7 +192,7 @@ Room **resetRooms() {
 	//Items
 	//Room 0
 	Item bat = createItem("bat", "A metal baseball bat.");
-	Item beaker = createItem("broken", "A cracked glass beaker.");
+	Item beaker = createItem("beaker", "A cracked glass beaker.");
 	Item chem = createItem("acid", "A bottle full of green acid.");
 	addItem(bat, rooms[0] -> items); 
 	addItem(beaker, rooms[0] -> items);
@@ -263,7 +264,7 @@ int main() {
 	Room **rooms;
 	rooms = resetRooms();
 	
-	printf("\n\nYou awaken with a start. You're not sure WHHAATTT happened last night, but you seem to be in the basement of some kind of laboratory.");
+	printf("\n\nYou awaken with a start. You're not sure what happened last night, but you seem to be in the basement of some kind of laboratory.");
 	printf("\n\nYou take a look at the room around you.");
 	
 

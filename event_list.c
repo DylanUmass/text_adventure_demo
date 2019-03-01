@@ -33,15 +33,6 @@ int getSize(EventList *list) {
 	return list->size;
 }
 
-//Might be redundant
-_Bool containsItem(EventList *list, Item item) {
-	for (Node *curr = list->head; curr != NULL; curr = curr->next) {
-		if (strcmp(item.name, curr->data.key.name))
-			return 1;
-	}
-	return 0;
-}
-
 /* 	Returns the KeyEvent associated with the given item if it exists in the given list,
 	If there is no event associated, then it returns a KeyEvent with an Item.name equal to "NULL" */ 
 KeyEvent getEvent(EventList *list, Item item) {
