@@ -340,8 +340,8 @@ int main() {
 	deleteRooms(rooms, numRooms);
 	rooms = NULL;
 
-
 	#ifdef DEBUG
+		//Tests
 		Room *start = createRoom("start", createInv("inventory", 8),NULL,NULL,NULL,NULL,NULL,NULL);
 		Room *end = createRoom("end", createInv("inventory", 8),NULL,NULL,NULL,NULL,NULL,NULL);
 		Item newItem = createItem("item", "desc");

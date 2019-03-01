@@ -10,7 +10,7 @@ Item createItem(char* name, char* description) {
 }
 
 //Null Item. Returned by functions that return an Item when there is an error.
-Item nullItem = {"", ""};
+static const Item nullItem = {"", ""};
 
 //Creates an Inventory with the given name and max size, and dynamically allocates memory for Items.
 Inventory* createInv(char* name, int maxSize) {

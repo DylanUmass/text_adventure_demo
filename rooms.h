@@ -2,18 +2,21 @@
 #define ROOMS_H
 #include "items.h"
 
+//Forward declaration of EventList
 typedef struct eventList EventList;
 struct eventList;
 
+//enum that indicates a direction
 typedef enum direction Direction;
 enum direction {north, south, east, west, up, down};
 
 typedef struct room Room;
 struct room
 	{
-		char *desc;
-		Inventory *items;
-		EventList *events;
+		char *desc; //Text that prints when the player uses "look" in the room
+		Inventory *items; //The items currently in the room
+		EventList *events; //events that can be triggered in the room
+		//Connections to other rooms
 		Room *north;
 		Room *south;
 		Room *east;
@@ -29,6 +32,7 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 //deletes all rooms in an array of rooms
 void deleteRooms(Room **rooms, int length);
 
+//Connects a given room to another room in each direction
 void setNorth(Room *current, Room *toAdd);
 void setSouth(Room *current, Room *toAdd);
 void setEast(Room *current, Room *toAdd);

@@ -17,11 +17,11 @@ Room *createRoom(char *desc, Inventory *items, Room *n, Room *s, Room *e, Room *
 	newRoom->west = w;
 	newRoom->up = u;
 	newRoom->down = d;
-	newRoom->events = createEList();
+	newRoom->events = createEList(); //creates empty list, events should be added manually
 	return newRoom;
 }
 
-//deletes all rooms in an array of rooms
+//deletes all rooms in an array of rooms, and frees their inventories and events
 void deleteRooms(Room **rooms, int length){
 	for (int i = 0; i < length; i++) {
 		deleteEList(rooms[i]->events);
@@ -31,7 +31,7 @@ void deleteRooms(Room **rooms, int length){
 	}
 }
 
-//These set a pointer of a given Room to another room
+//Connects a given room to another room in each direction
 void setNorth(Room *current, Room *toAdd) {
 	if (current == NULL)
 		fprintf(stderr, "The room you're trying to modify is NULL\n");
@@ -69,10 +69,10 @@ void setDown(Room *current, Room *toAdd) {
 		current->down = toAdd;
 }
 
-//Adds a given item to a given Room's inventory
+//Adds an item to a room
 void addRoomItem(Room *room, Item item) {
 	int index = getItemIndex(item.name, room->items);
-	if (index == -1) 
+	if (index == -1) //Item is not already in room
 		addItem(item, room->items);
 	else
 		fprintf(stderr, "Item is already in Room\n");
