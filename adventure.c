@@ -324,10 +324,10 @@ int main() {
 			printCommandList();
 		}
 		else if(strcmp(tokens[0], "quit") == 0) {
-			printf("\n\nBye for now!\n");
+			printf("\nBye for now!\n\n");
 			freePlayer(player);
 			player = NULL;
-			deleteRooms(rooms, 9);
+			deleteRooms(rooms, numRooms);
 			rooms = NULL;
 			exit(0);
 		}
