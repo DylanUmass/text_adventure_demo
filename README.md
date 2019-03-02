@@ -24,4 +24,8 @@ Puzzle Solutions:
 3. Use the acid (located in the beaker storage) to burn a hole in the break room's East wall.
 4. Use the notes (located in the chemical laboratory) to open the password protected South door of the atrium.
 5. Use the lift key (located in the Hadron Collider room) to unlock the escape lift in the Atrium (up direction).
+
+Video link:
+
+https://streamable.com/edit/2pi8r
  
