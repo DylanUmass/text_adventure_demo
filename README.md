@@ -27,5 +27,5 @@ Puzzle Solutions:
 
 Video link:
 
-https://streamable.com/edit/2pi8r
+https://streamable.com/2pi8r
  
