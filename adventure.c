@@ -161,7 +161,7 @@ Room **resetRooms() {
 	rooms[5] = createRoom("Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, but there's a weak point in the wall to the East.", createInv("Break Room", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[6] = createRoom("Chemical Lab: A large white room with a few rows of lab tables, each with various chemical mixtures on them. The exit is to the West", createInv("Chemical Lab", 25), NULL, NULL, NULL, NULL, NULL, NULL);
 	rooms[7] = createRoom("Hadron Collider: A metal plated circular room with a Large Hadron Collider in the center. The exit is to the North.", createInv("Hadron Collider", 25), NULL, NULL, NULL, NULL, NULL, NULL);
-  	rooms[8] = createRoom("EXIT", NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+  	rooms[8] = createRoom("EXIT", createInv("exit",0), NULL, NULL, NULL, NULL, NULL, NULL);
 	
 	//Initialize Room entrances/exits
 	
@@ -243,7 +243,7 @@ Room **resetRooms() {
 	addEvent(rooms[0] -> events, createEvent(bat, rooms[0], south, rooms[1], "You smashed open the South door with the bat!", "Beaker Storage: A dusty, dark room with beakers on shelves lining the walls. The only exit is to the South."));
 	addEvent(rooms[1] -> events, createEvent(pliers, rooms[1], up, rooms[4], "You cut the lock to the door upstairs with the pliers!", "Main Basement: A large, barren room. The upstairs doorway is unlocked, and there are open doors to the North, South, and West."));
 	addEvent(rooms[5] -> events, createEvent(chem, rooms[5], east, rooms[6], "You melted the East wall with acid!", "Break Room: A comforable looking kitchen with a few tables scattered around. The only door is to the South, and there's a hole in the wall to the East."));
-	addEvent(rooms[4] -> events, createEvent(labnotes, rooms[4], south, rooms[7], "You unlocked the South with the passcode!", "Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. The password protected door to the South is open, as well as a door to the north."));
+	addEvent(rooms[4] -> events, createEvent(labnotes, rooms[4], south, rooms[7], "You unlocked the South room with the passcode!", "Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, but it requires a lift key to use. The password protected door to the South is open, as well as a door to the north."));
 	addEvent(rooms[4] -> events, createEvent(liftkey, rooms[4], up, rooms[8], "You activated the lift with the lift key!", "Atrium: A large, immaculate, dome-shaped room. There's an elevator that goes up, and is fully functional. The password protected door to the South is open, as well as a door to the north."));
 	
 	return rooms;
@@ -261,7 +261,7 @@ void strToLower(char *string) {
 int main() {
 	//Create and connect rooms
 	Room **rooms; //List of all rooms
-	int numRooms = 8; //number of rooms in the game
+	int numRooms = 9; //number of rooms in the game
 	rooms = resetRooms();
 	
 	printf("\n\nYou awaken with a start. You're not sure what happened last night, but you seem to be in the basement of some kind of laboratory.");
@@ -327,7 +327,7 @@ int main() {
 			printf("\n\nBye for now!\n");
 			freePlayer(player);
 			player = NULL;
-			deleteRooms(rooms, 8);
+			deleteRooms(rooms, 9);
 			rooms = NULL;
 			exit(0);
 		}
